@@ -3,7 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeloBot.Bot", "WeloBot.Bot\WeloBot.Bot.csproj", "{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeloBot.Data", "WeloBot.Data\WeloBot.Data.csproj", "{7A0D9611-7517-4D52-9B02-E4F99C99C500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeloBot.Api", "WeloBot.Api\WeloBot.Api.csproj", "{0D2EFA20-9B60-4659-8523-DD79AC12759D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeloBot.Domain", "WeloBot.Domain\WeloBot.Domain.csproj", "{DD232CE3-FCC8-47AD-8EF2-FCEE856CA895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeloBot.Application", "WeloBot.Application\WeloBot.Application.csproj", "{25612D79-1C0C-4E39-8204-CAFC5AC78B53}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0D9611-7517-4D52-9B02-E4F99C99C500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0D9611-7517-4D52-9B02-E4F99C99C500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0D9611-7517-4D52-9B02-E4F99C99C500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0D9611-7517-4D52-9B02-E4F99C99C500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D2EFA20-9B60-4659-8523-DD79AC12759D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D2EFA20-9B60-4659-8523-DD79AC12759D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D2EFA20-9B60-4659-8523-DD79AC12759D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D2EFA20-9B60-4659-8523-DD79AC12759D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD232CE3-FCC8-47AD-8EF2-FCEE856CA895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD232CE3-FCC8-47AD-8EF2-FCEE856CA895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD232CE3-FCC8-47AD-8EF2-FCEE856CA895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD232CE3-FCC8-47AD-8EF2-FCEE856CA895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25612D79-1C0C-4E39-8204-CAFC5AC78B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25612D79-1C0C-4E39-8204-CAFC5AC78B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25612D79-1C0C-4E39-8204-CAFC5AC78B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25612D79-1C0C-4E39-8204-CAFC5AC78B53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
