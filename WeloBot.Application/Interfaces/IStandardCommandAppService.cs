@@ -2,7 +2,7 @@
 
 namespace WeloBot.Application.Interfaces
 {
-    public interface IStandardCommandAppService : IAppServiceBase<StandardCommandEntity, int>
+    public interface IStandartCommandsAppService : IAppServiceBase<StandardCommandEntity, int>
     {
         string GetResponseMessageToTrigger(string trigger);
     }

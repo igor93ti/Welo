@@ -2,13 +2,20 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using WeloBot.Bot.Client;
+using WeloBot.Application.Interfaces;
 
 namespace WeloBot.Bot.Commands
 {
     [Serializable]
     public class StartUpCommand : IDialog<object>
     {
+        private readonly IStandartCommandsAppService _appService;
+
+        public StartUpCommand(IStandartCommandsAppService appService)
+        {
+            _appService = appService;
+        }
+
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -18,7 +25,7 @@ namespace WeloBot.Bot.Commands
         {
             var message = await argument;
 
-            var response = await CommandsClient.RequestResponseFromTrigger(message.Text);
+            var response = _appService.GetResponseMessageToTrigger(message.Text);
             if (response != null)
             {
                 await context.PostAsync(response);

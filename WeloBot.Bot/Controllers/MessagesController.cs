@@ -1,9 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using WeloBot.Application.Interfaces;
 using WeloBot.Bot.Commands;
 
 namespace WeloBot.Bot
@@ -11,21 +13,37 @@ namespace WeloBot.Bot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        private readonly IStandartCommandsAppService _appService;
+
+        public MessagesController(IStandartCommandsAppService appService)
+        {
+            _appService = appService;
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            if (activity.Type == ActivityTypes.Message)
+            var response = Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            try
             {
-                await Conversation.SendAsync(activity, () => new StartUpCommand());
+                if (activity.Type == ActivityTypes.Message)
+                {
+                    await Conversation.SendAsync(activity, () => new StartUpCommand(_appService));
+                }
+                else
+                {
+                    HandleSystemMessage(activity);
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK);
             }
-            else
+            catch (Exception e)
             {
-                HandleSystemMessage(activity);
+                throw e;
             }
-            var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
 

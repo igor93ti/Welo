@@ -192,7 +192,6 @@
     <Compile Include="Maps\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Maps\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Class1.cs" />
     <Compile Include="ViewModels\CommandTypeViewModel.cs" />
     <Compile Include="ViewModels\StandardCommandViewModel.cs" />
   </ItemGroup>

@@ -5,7 +5,7 @@ using WeloBot.Domain.Interfaces.Services;
 
 namespace WeloBot.Application.AppServices
 {
-    public class StandartCommandsAppService : AppServiceBase<StandardCommandEntity, int>, IStandardCommandAppService
+    public class StandartCommandsAppService : AppServiceBase<StandardCommandEntity, int>, IStandartCommandsAppService
     {
         private readonly IStandardCommandService _service;
 
