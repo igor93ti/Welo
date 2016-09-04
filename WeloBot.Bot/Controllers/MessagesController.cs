@@ -26,8 +26,6 @@ namespace WeloBot.Bot
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            var response = Request.CreateResponse(HttpStatusCode.BadRequest);
-
             try
             {
                 if (activity.Type == ActivityTypes.Message)
@@ -38,13 +36,13 @@ namespace WeloBot.Bot
                 {
                     HandleSystemMessage(activity);
                 }
-                response = Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)
             {
                 throw e;
             }
-            return response;
+            return Request.CreateResponse(HttpStatusCode.OK);
+
         }
 
         private Activity HandleSystemMessage(Activity message)
