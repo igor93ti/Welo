@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../.." isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Application/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Application/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Bot/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Bot/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Data/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Data/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Domain/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.Domain/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.IoC/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../WeloBot.IoC/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../_ReSharper.Caches/ReSharperHost7.WeloBot.00" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
