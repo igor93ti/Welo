@@ -7,6 +7,7 @@ using Welo.Domain.Interfaces.Services;
 
 namespace Welo.Domain.Services
 {
+    [Serializable]
     public class ServiceBaseTEntity<TEntity, TIdentifier> : IService<TEntity, TIdentifier> where TEntity : IEntity<TIdentifier>, new() where TIdentifier : struct
     {
         private IRepository<TEntity, TIdentifier> _repository;

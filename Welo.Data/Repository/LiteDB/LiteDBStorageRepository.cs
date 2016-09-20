@@ -6,6 +6,7 @@ using LiteDB;
 
 namespace Welo.Data.Repository.LiteDB
 {
+    [Serializable]
     public class LiteDBStorageRepository<TFile> where TFile : class, IStorageFile, new()
     {
         private LiteFileStorage _fileStorage;

@@ -1,20 +1,17 @@
 ﻿using System;
-using Autofac;
+using Ninject.Modules;
+using Ninject.Web.Common;
 using Welo.Domain.Interfaces.Services;
 using Welo.Domain.Services;
 
 namespace Welo.IoC
 {
-    public class DomainModule : Module
+    public class DomainModule : NinjectModule
     {
-        protected override void Load(ContainerBuilder builder)
+        public override void Load()
         {
-            if (builder == null)
-                throw new ArgumentNullException(nameof(builder));
-
-            builder.RegisterType<StandartCommandsService>()
-                   .As<IStandardCommandService>()
-                   .InstancePerRequest();
+            this.Bind<IStandardCommandService>()
+                .To<StandartCommandsService>().InRequestScope();
         }
     }
 }

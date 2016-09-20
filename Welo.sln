@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Welo.Bot", "Welo.Bot\Welo.Bot.csproj", "{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Welo.Domain", "Welo.Domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Welo.Application", "Welo.Application\Welo.Application.csproj", "{25612D79-1C0C-4E39-8204-CAFC5AC78B53}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WeloBot.Web", "Welo.Web\", "{47B1FAB3-70BC-48CE-8F15-A9E577E13CA6}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Welo.Web", "Welo.Web\", "{47B1FAB3-70BC-48CE-8F15-A9E577E13CA6}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_49397"

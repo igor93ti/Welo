@@ -2,6 +2,7 @@
 
 namespace Welo.Domain.Entities.Base
 {
+    [Serializable]
     public class EntityValidationResult
     {
         public String Property { get; set; }

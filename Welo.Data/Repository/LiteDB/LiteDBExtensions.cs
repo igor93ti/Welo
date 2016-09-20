@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using LiteDB;
 
 namespace Welo.Data.Repository.LiteDB
 {
+    [Serializable]
     public static class LiteDBExtensions
     {
         public static TFile ToStorageFile<TFile>( this LiteFileInfo fileInfo ) where TFile : class, IStorageFile, new()

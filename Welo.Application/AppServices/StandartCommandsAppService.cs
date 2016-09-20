@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Welo.Application.Interfaces;
 using Welo.Domain.Entities;
 using Welo.Domain.Interfaces.Services;
 
 namespace Welo.Application.AppServices
 {
+    [Serializable]
     public class StandartCommandsAppService : AppServiceBase<StandardCommandEntity, int>, IStandartCommandsAppService
     {
         private readonly IStandardCommandService _service;

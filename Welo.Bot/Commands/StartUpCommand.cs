@@ -7,7 +7,7 @@ using Welo.Application.Interfaces;
 namespace Welo.Bot.Commands
 {
     [Serializable]
-    public class StartUpCommand : IDialog<object>
+    public class StartUpCommand :  IStartUpCommand
     {
         private readonly IStandartCommandsAppService _appService;
 

@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
+using System.Web.Mvc;
 using Autofac;
+using Ninject;
 using Welo.Bot.Maps;
 
 namespace Welo.Bot
@@ -9,14 +11,7 @@ namespace Welo.Bot
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RegisterIOC();
             AutoMapperConfig.RegisterMappings();
-        }
-
-        private void RegisterIOC()
-        {
-            var builder = new ContainerBuilder();
-            AutofacBootstrap.Init(builder);
         }
     }
 }

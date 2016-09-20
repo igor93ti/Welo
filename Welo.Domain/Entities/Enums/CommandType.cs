@@ -1,5 +1,8 @@
-﻿namespace Welo.Domain.Entities.Enums
+﻿using System;
+
+namespace Welo.Domain.Entities.Enums
 {
+    [Serializable]
     public enum CommandType
     {
         GoogleDocs

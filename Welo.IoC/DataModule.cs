@@ -1,20 +1,17 @@
 ﻿using System;
-using Autofac;
+using Ninject.Modules;
+using Ninject.Web.Common;
 using Welo.Data;
 using Welo.Domain.Interfaces.Repositories;
 
 namespace Welo.IoC
 {
-    public class DataModule : Module
+    public class DataModule : NinjectModule
     {
-        protected override void Load(ContainerBuilder builder)
+        public override void Load()
         {
-            if (builder == null)
-                throw new ArgumentNullException(nameof(builder));
-
-            builder.RegisterType<StandardCommandRepository>()
-                   .As<IStandardCommandRepository>()
-                   .InstancePerRequest();
+            this.Bind<IStandardCommandRepository>()
+                .To<StandardCommandRepository>().InRequestScope();
         }
     }
 }

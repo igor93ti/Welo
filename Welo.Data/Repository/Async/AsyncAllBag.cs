@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace Welo.Data.Repository.Async
 {
+    [Serializable]
     internal class AsyncAllBag : IDisposable
     {
         private TaskScheduler _scheduler;

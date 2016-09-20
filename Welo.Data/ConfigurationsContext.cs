@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using LiteDB;
 using Welo.Data.Repository.LiteDB;
 
 namespace Welo.Data
 {
+    [Serializable]
     public class ConfigurationsContext : ILiteDBContext
     {
         private LiteDatabase db;

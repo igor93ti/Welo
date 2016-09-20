@@ -7,6 +7,7 @@ using Welo.Domain.Interfaces.Services;
 
 namespace Welo.Application
 {
+    [Serializable]
     public class AppServiceBase<TEntity, TIdentifier> : IAppServiceBase<TEntity, TIdentifier> where TEntity : IEntity<TIdentifier>, new() where TIdentifier : struct
     {
         private readonly IService<TEntity, TIdentifier> _service;

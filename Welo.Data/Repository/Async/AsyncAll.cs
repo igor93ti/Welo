@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Welo.Data.Repository.Async
 {
+    [Serializable]
     /// <summary>
     /// Extensions to provide several methods for all .NET Framework verions for async/await Pattern
     /// </summary>

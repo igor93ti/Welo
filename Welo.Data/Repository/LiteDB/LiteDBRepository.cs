@@ -7,6 +7,7 @@ using Welo.Domain.Interfaces.Repositories.Base;
 
 namespace Welo.Data.Repository.LiteDB
 {
+    [Serializable]
     public partial class LiteDBRepository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier>, IRepositoryAsync<TEntity, TIdentifier>
         where TEntity : IEntity<TIdentifier>,
         new() where TIdentifier : struct

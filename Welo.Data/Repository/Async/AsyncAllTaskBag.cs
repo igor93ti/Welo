@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 
 namespace Welo.Data.Repository.Async
 {
-     internal class AsyncAllTaskBag
+    [Serializable]
+    internal class AsyncAllTaskBag
     {
           private AsyncAllTaskBag( )
         {

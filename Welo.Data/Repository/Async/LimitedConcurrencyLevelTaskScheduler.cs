@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Welo.Data.Repository.Async
 {
+    [Serializable]
     /// <summary>
     /// Provides a task scheduler that ensures a maximum concurrency level while  
     /// running on top of the thread pool. 
