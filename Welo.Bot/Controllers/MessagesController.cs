@@ -19,9 +19,8 @@ namespace Welo.Bot
 
         public MessagesController(IStandartCommandsAppService appService, IStartUpCommand startUpCommand)
         {
-
-            SetField.NotNull(out this._appService, nameof(_startUpCommand), appService);
-            SetField.NotNull(out this._startUpCommand, nameof(_startUpCommand), startUpCommand);
+            SetField.NotNull(out _appService, nameof(startUpCommand), appService);
+            SetField.NotNull(out _startUpCommand, nameof(startUpCommand), startUpCommand);
         }
 
         /// <summary>

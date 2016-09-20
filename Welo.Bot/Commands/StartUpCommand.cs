@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Connector;
 using Welo.Application.Interfaces;
 
@@ -13,7 +14,7 @@ namespace Welo.Bot.Commands
 
         public StartUpCommand(IStandartCommandsAppService appService)
         {
-            _appService = appService;
+            SetField.NotNull(out _appService, nameof(appService), appService);
         }
 
         public async Task StartAsync(IDialogContext context)
