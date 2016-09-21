@@ -14,15 +14,7 @@ namespace Welo.Bot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private readonly IStandartCommandsAppService _appService;
-        private readonly IStartUpCommand _startUpCommand;
-
-        public MessagesController(IStandartCommandsAppService appService, IStartUpCommand startUpCommand)
-        {
-            SetField.NotNull(out _appService, nameof(startUpCommand), appService);
-            SetField.NotNull(out _startUpCommand, nameof(startUpCommand), startUpCommand);
-        }
-
+        
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -33,7 +25,7 @@ namespace Welo.Bot
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    await Conversation.SendAsync(activity, () => _startUpCommand);
+                    await Conversation.SendAsync(activity, () => new StartUpCommand());
                 }
                 else
                 {

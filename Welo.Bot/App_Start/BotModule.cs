@@ -10,8 +10,6 @@ namespace Welo.Bot.App_Start
     {
         public override void Load()
         {
-            this.Bind<IStartUpCommand>()
-                .To<StartUpCommand>().InRequestScope();
         }
     }
 }

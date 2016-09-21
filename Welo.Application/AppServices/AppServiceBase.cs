@@ -12,9 +12,8 @@ namespace Welo.Application
     {
         private readonly IService<TEntity, TIdentifier> _service;
 
-        public AppServiceBase(IService<TEntity, TIdentifier> service)
+        public AppServiceBase()
         {
-            _service = service;
         }
 
         public bool Exists(TIdentifier id) => _service.Exists(id);

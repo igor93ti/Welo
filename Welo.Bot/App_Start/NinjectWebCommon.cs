@@ -55,10 +55,10 @@ namespace Welo.Bot.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load<BotModule>();
-            kernel.Load<ApplicationModule>();
-            kernel.Load<DomainModule>();
-            kernel.Load<DataModule>();
+            //kernel.Load<BotModule>();
+            //kernel.Load<ApplicationModule>();
+            //kernel.Load<DomainModule>();
+            //kernel.Load<DataModule>();
         }
     }
 }
