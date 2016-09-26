@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Welo.Domain.Entities;
-using Welo.Domain.Interfaces.Repositories;
-using Welo.Domain.Interfaces.Services;
 using Welo.Domain.Interfaces.Services.GSheets;
 
 namespace Welo.Domain.Services.GSheets
@@ -29,7 +22,7 @@ namespace Welo.Domain.Services.GSheets
             var message = string.Empty;
 
             var sheet = _service.BatchGet(query.Ranges);
-            var randomRow = new Random(1);
+            var randomRow = new Random();
             var index = randomRow.Next(sheet.Count);
 
             foreach (var text in sheet[index])
@@ -37,6 +30,7 @@ namespace Welo.Domain.Services.GSheets
 
             return message;
         }
+
         private static string Number2String(int number)
         {
             Char c = (char)((65) + (number - 1));
