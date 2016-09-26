@@ -254,7 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Welo.Application\Welo.Application.csproj">
-      <Project>{25612d79-1c0c-4e39-8204-cafc5ac78b53}</Project>
+      <Project>{25612D79-1C0C-4E39-8204-CAFC5AC78B53}</Project>
       <Name>Welo.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Welo.Domain\Welo.Domain.csproj">

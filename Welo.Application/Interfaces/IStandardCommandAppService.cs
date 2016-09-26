@@ -2,7 +2,7 @@
 
 namespace Welo.Application.Interfaces
 {
-    public interface IStandartCommandsAppService : IAppServiceBase<StandardCommandEntity, int>
+    public interface IStandardCommandsAppService : IAppServiceBase<StandardCommandEntity, int>
     {
         string GetResponseMessageToTrigger(string trigger);
     }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute Ranges to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Welo.IoC")]
+[assembly: AssemblyTitle("Welo.GoogleDocsData")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Welo.IoC")]
+[assembly: AssemblyProduct("Welo.GoogleDocsData")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b68cb721-26e4-47f0-a2e2-46d5e4350a1c")]
+[assembly: Guid("b70829b2-5c3d-4df4-b223-216fd49d6240")]
 
 // Version information for an assembly consists of the following four Ranges:
 //

@@ -9,9 +9,9 @@ namespace Welo.Bot.Controllers
 {
     public class CommandsController : ApiController
     {
-        private readonly IStandartCommandsAppService _appService;
+        private readonly IStandardCommandsAppService _appService;
 
-        public CommandsController(IStandartCommandsAppService appService)
+        public CommandsController(IStandardCommandsAppService appService)
         {
             _appService = appService;
         }

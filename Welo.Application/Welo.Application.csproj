@@ -129,17 +129,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServices\AppServiceBase.cs" />
-    <Compile Include="AppServices\GoogleService.cs" />
-    <Compile Include="AppServices\StandartCommandsAppService.cs" />
+    <Compile Include="AppServices\GoogleTextCommandsAppService.cs" />
+    <Compile Include="AppServices\StandardCommandsAppService.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\IStandardCommandAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Welo.Data\Welo.Data.csproj">
-      <Project>{7a0d9611-7517-4d52-9b02-e4f99c99c500}</Project>
-      <Name>Welo.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Welo.Domain\Welo.Domain.csproj">
       <Project>{dd232ce3-fcc8-47ad-8ef2-fcee856ca895}</Project>
       <Name>Welo.Domain</Name>

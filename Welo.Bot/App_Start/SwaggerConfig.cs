@@ -236,7 +236,7 @@ namespace Welo.Bot
                         //    //additionalQueryStringParams: new Dictionary<string, string>() { { "foo", "bar" } }
                         //);
 
-                        // If your API supports ApiKey, you can override the default values.
+                        // If your API supports ApiKey, you can override the default Ranges.
                         // "apiKeyIn" can either be "query" or "header"                                                
                         //
                         //c.EnableApiKeySupport("apiKey", "header");

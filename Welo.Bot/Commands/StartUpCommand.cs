@@ -5,22 +5,28 @@ using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Connector;
 using Welo.Application.AppServices;
 using Welo.Application.Interfaces;
+using Welo.IoC;
 
 namespace Welo.Bot.Commands
 {
     [Serializable]
     public class StartUpCommand : IDialog<object>
     {
-        public async Task StartAsync(IDialogContext context)
+        private readonly IStandardCommandsAppService _appService;
+
+        public StartUpCommand()
         {
-            context.Wait(MessageReceivedAsync);
+            var serviceLocator = new ServiceLocator();
+           _appService = serviceLocator.GetService<IStandardCommandsAppService>();
+            
         }
+
+        public async Task StartAsync(IDialogContext context) 
+            => context.Wait(MessageReceivedAsync);
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
-
-            var _appService = new StandartCommandsAppService();
             var response = _appService.GetResponseMessageToTrigger(message.Text);
             if (response != null)
             {
