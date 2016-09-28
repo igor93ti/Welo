@@ -4,7 +4,6 @@ using AutoMapper;
 using Welo.Application.Interfaces;
 using Welo.Bot.ViewModels;
 using Welo.Domain.Entities;
-using Welo.IoC;
 
 namespace Welo.Bot.Controllers
 {
@@ -12,10 +11,9 @@ namespace Welo.Bot.Controllers
     {
         private readonly IStandardCommandsAppService _appService;
 
-        public CommandsController()
+        public CommandsController(IStandardCommandsAppService appService)
         {
-            var serviceLocator = new ServiceLocator();
-            _appService = serviceLocator.GetService<IStandardCommandsAppService>();
+            _appService = appService;
         }
 
         public IEnumerable<StandardCommandViewModel> Get()

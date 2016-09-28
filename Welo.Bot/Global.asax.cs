@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
-using System.Web.Mvc;
 using Autofac;
-using Ninject;
+using Autofac.Integration.WebApi;
+using Welo.Bot.App_Start;
 using Welo.Bot.Maps;
 
 namespace Welo.Bot
@@ -12,6 +12,14 @@ namespace Welo.Bot
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AutoMapperConfig.RegisterMappings();
+            AutofacBootstrap.Init();
+        }
+
+        public static ILifetimeScope FindContainer()
+        {
+            var config = GlobalConfiguration.Configuration;
+            var resolver = (AutofacWebApiDependencyResolver)config.DependencyResolver;
+            return resolver.Container;
         }
     }
 }

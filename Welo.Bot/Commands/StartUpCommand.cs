@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Connector;
-using Welo.Application.AppServices;
 using Welo.Application.Interfaces;
-using Welo.IoC;
 
 namespace Welo.Bot.Commands
 {
@@ -14,14 +12,12 @@ namespace Welo.Bot.Commands
     {
         private readonly IStandardCommandsAppService _appService;
 
-        public StartUpCommand()
+        public StartUpCommand(IStandardCommandsAppService appService)
         {
-            var serviceLocator = new ServiceLocator();
-           _appService = serviceLocator.GetService<IStandardCommandsAppService>();
-            
+            SetField.NotNull(out _appService, nameof(appService), appService);
         }
 
-        public async Task StartAsync(IDialogContext context) 
+        public async Task StartAsync(IDialogContext context)
             => context.Wait(MessageReceivedAsync);
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -17,9 +15,25 @@ namespace Welo.GoogleDocsData
     public class GSheetsService : IGSheetsService
     {
         private static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
-        public GSheetContext Context { get; set; }
         private SheetsService _sheetsService = null;
-        
+        public GSheetContext Context { get; set; }
+
+        public GSheetsService()
+        {
+            var appDomain = AppDomain.CurrentDomain;
+            var basePath = appDomain.BaseDirectory;
+
+            var pathDirectory = Path.Combine(basePath, "App_Data");
+            Context = new GSheetContext
+            {
+                ApplicationName = "WeloBot",
+                SpreadsheetId = "1TxL93syBaHLZnrXj_Ll8eTJ0O1hCx2iwJfJdqXtZUsU",
+                PathConfig = pathDirectory,
+                NameFile = "client_secret.json",
+                User = "eugenio00"
+            };
+        }
+
         private SheetsService Service
         {
             get

@@ -36,6 +36,7 @@
     <Compile Include="Entities\Base\IValidateableEntity.cs" />
     <Compile Include="Entities\GSheetContext.cs" />
     <Compile Include="Entities\GSheetQuery.cs" />
+    <Compile Include="Interfaces\IGSheetContext.cs" />
     <Compile Include="Entities\QuotesResponsesEntity.cs" />
     <Compile Include="Entities\StandardCommandEntity.cs" />
     <Compile Include="Entities\ConfigurationEntity.cs" />

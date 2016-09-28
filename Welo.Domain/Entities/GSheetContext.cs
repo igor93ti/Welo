@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common.CommandTrees.ExpressionBuilder;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Welo.Domain.Interfaces.Services.GSheets;
+using System.IO;
+using Welo.Domain.Interfaces;
 
 namespace Welo.Domain.Entities
 {
-    public class GSheetContext
+    public class GSheetContext : IGSheetContext
     {
+        public GSheetContext()
+        {
+        }
+
         public string ApplicationName { get; set; }
         public string SpreadsheetId { get; set; }
         public string PathConfig { get; set; }

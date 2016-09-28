@@ -4,6 +4,7 @@ using Welo.Domain.Interfaces.Services.GSheets;
 
 namespace Welo.Domain.Services.GSheets
 {
+    [Serializable]
     public class CommandTextGoogle : ICommandTextGoogle
     {
         private readonly IGSheetsService _service;
