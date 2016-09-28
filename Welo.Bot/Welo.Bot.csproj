@@ -232,13 +232,17 @@
       <Project>{25612D79-1C0C-4E39-8204-CAFC5AC78B53}</Project>
       <Name>Welo.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Welo.Data\Welo.Data.csproj">
+      <Project>{7a0d9611-7517-4d52-9b02-e4f99c99c500}</Project>
+      <Name>Welo.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Welo.Domain\Welo.Domain.csproj">
       <Project>{dd232ce3-fcc8-47ad-8ef2-fcee856ca895}</Project>
       <Name>Welo.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Welo.IoC\Welo.IoC.csproj">
-      <Project>{b68cb721-26e4-47f0-a2e2-46d5e4350a1c}</Project>
-      <Name>Welo.IoC</Name>
+    <ProjectReference Include="..\Welo.GoogleDocsData\Welo.GoogleDocsData.csproj">
+      <Project>{b70829b2-5c3d-4df4-b223-216fd49d6240}</Project>
+      <Name>Welo.GoogleDocsData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

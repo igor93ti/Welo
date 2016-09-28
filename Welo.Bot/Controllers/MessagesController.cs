@@ -5,34 +5,24 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Connector;
-using Activity = Microsoft.Bot.Connector.Activity;
+using Welo.Bot.Commands;
 
 namespace Welo.Bot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private readonly ILifetimeScope _scope;
-
-        public MessagesController(ILifetimeScope scope)
-        {
-            SetField.NotNull(out this._scope, nameof(scope), scope);
-        }
-
         public async Task<HttpResponseMessage> Post([FromBody] Activity activity, CancellationToken token)
         {
             try
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    using (var scope = DialogModule.BeginLifetimeScope(this._scope, activity))
-                    {
-                        var postToBot = scope.Resolve<IPostToBot>();
-                        await postToBot.PostAsync(activity, token);
-                    }
+                    await Conversation.SendAsync(activity, () => new StartUpCommand(), token);
                 }
                 else
                 {

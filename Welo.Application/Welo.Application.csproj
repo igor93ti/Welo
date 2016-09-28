@@ -136,9 +136,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Welo.Data\Welo.Data.csproj">
+      <Project>{7A0D9611-7517-4D52-9B02-E4F99C99C500}</Project>
+      <Name>Welo.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Welo.Domain\Welo.Domain.csproj">
       <Project>{dd232ce3-fcc8-47ad-8ef2-fcee856ca895}</Project>
       <Name>Welo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Welo.GoogleDocsData\Welo.GoogleDocsData.csproj">
+      <Project>{B70829B2-5C3D-4DF4-B223-216FD49D6240}</Project>
+      <Name>Welo.GoogleDocsData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
