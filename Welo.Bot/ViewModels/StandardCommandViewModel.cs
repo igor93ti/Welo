@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Welo.Domain.Entities.Enums;
 
 namespace Welo.Bot.ViewModels
 {
@@ -9,6 +11,7 @@ namespace Welo.Bot.ViewModels
         public bool IsRandomResponse { get; set; }
         public bool IsVisibleOnMenu { get; set; }
         public CommandTypeViewModel CommandType { get; set; }
+        public IList<int> FormatMask { get; set; }
         public string TableName { get; set; }
         public string[] QuotesResponses { get; set; }
     }

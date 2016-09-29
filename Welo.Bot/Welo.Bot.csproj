@@ -218,7 +218,7 @@
     <Content Include="App_Data\client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\PublishProfiles\welobot - Web Deploy.pubxml" />
+    <Content Include="DataFile\CommandsContext" />
     <None Include="Properties\PublishProfiles\welobot.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -245,10 +245,12 @@
       <Project>{b70829b2-5c3d-4df4-b223-216fd49d6240}</Project>
       <Name>Welo.GoogleDocsData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Welo.IoC\Welo.IoC.csproj">
+      <Project>{B68CB721-26E4-47F0-A2E2-46D5E4350A1C}</Project>
+      <Name>Welo.IoC</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataFile\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

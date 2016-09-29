@@ -21,14 +21,14 @@ namespace Welo.Bot.Commands
 
             var _appService = new StandardCommandsAppService();
             var response = _appService.GetResponseMessageToTrigger(message.Text);
-            if (response != null)
+
+            if (string.IsNullOrEmpty(response))
             {
-                await context.PostAsync(response);
-                context.Wait(MessageReceivedAsync);
+                context.Done(string.Empty);
             }
             else
             {
-                await context.PostAsync("Não deu");
+                await context.PostAsync(response);
                 context.Wait(MessageReceivedAsync);
             }
         }

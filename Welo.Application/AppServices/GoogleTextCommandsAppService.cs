@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Welo.Domain.Entities;
 using Welo.Domain.Services.GSheets;
 
@@ -14,7 +15,7 @@ namespace Welo.Application.AppServices
             _commandTextGoogle = commandTextGoogle;
         }
 
-        public string GetResponseMessageToTrigger(GSheetQuery query)
-            => _commandTextGoogle.GetTextRandomRowGSheets(query);
+        public IList<object> GetResponseMessageToTrigger(GSheetQuery query)
+            => _commandTextGoogle.GetRandomRowGSheets(query);
     }
 }

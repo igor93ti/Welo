@@ -1,9 +1,10 @@
-﻿using Welo.Domain.Entities;
+﻿using System.Collections.Generic;
+using Welo.Domain.Entities;
 
 namespace Welo.Domain.Services.GSheets
 {
     public interface ICommandTextGoogle
     {
-        string GetTextRandomRowGSheets(GSheetQuery range);
+        IList<object> GetRandomRowGSheets(GSheetQuery range);
     }
 }
