@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Example;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Util.Store;
+using Newtonsoft.Json;
 using Welo.Domain.Entities;
 using Welo.Domain.Interfaces.Services.GSheets;
 
@@ -30,7 +33,7 @@ namespace Welo.GoogleDocsData
                 SpreadsheetId = "1TxL93syBaHLZnrXj_Ll8eTJ0O1hCx2iwJfJdqXtZUsU",
                 PathConfig = pathDirectory,
                 NameFile = "client_secret.json",
-                User = "eugenio00"
+                User = "welobot@welobotv2.iam.gserviceaccount.com"
             };
         }
 
@@ -38,25 +41,26 @@ namespace Welo.GoogleDocsData
         {
             get
             {
+
                 if (_sheetsService != null)
                     return _sheetsService;
+                
 
-                UserCredential credential;
                 var pathFile = Path.Combine(Context.PathConfig, Context.NameFile);
-                using (var stream = new FileStream(pathFile, FileMode.Open, FileAccess.Read))
-                {
-                    var pathCred = Path.Combine(Context.PathConfig, "credentials.json");
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                        GoogleClientSecrets.Load(stream).Secrets,
-                        Scopes,
-                        Context.User,
-                        CancellationToken.None,
-                        new FileDataStore(pathCred, true)).Result;
-                }
+                // Get active credential
 
+                var json = File.ReadAllText(pathFile);
+                var cr = JsonConvert.DeserializeObject<PersonalServiceAccountCred>(json); // "personal" service account credential
+
+                // Create an explicit ServiceAccountCredential credential
+                var xCred = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(cr.ClientEmail)
+                {
+                    Scopes = Scopes
+                }.FromPrivateKey(cr.PrivateKey));
+                
                 _sheetsService = new SheetsService(new BaseClientService.Initializer
                 {
-                    HttpClientInitializer = credential,
+                    HttpClientInitializer = xCred,
                     ApplicationName = Context.ApplicationName
                 });
 
