@@ -219,6 +219,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\welobot - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\welobot.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
