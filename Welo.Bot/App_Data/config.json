@@ -1,0 +1,150 @@
+﻿{
+  "AccessToken": "193450597:AAGIyus96InWjNAeVluleNA4lh_IHxvHvgo",
+  "GDocsClientID": "842076193135-8acpsjcaetcgnslmpd7snsio5msla13a.apps.googleusercontent.com",
+  "GDocsClientSecret": "MysSmOqnxgRJWl3Dd5d84XQr",
+  "TelegramKeyBoardCollumns": 2,
+  "WaitingResponseTexts": [
+    {
+      "Texts": [
+        "Vamos lá!",
+        "Mais Alguma coisa?",
+        "Aqui prontinho!",
+        "WeloBot ao seu dispor",
+        "Prontinho :)"
+      ]
+    }
+  ],
+  "TextsFallbackResponse": [
+    {
+      "Texts": [
+        "Eita! sei que é isso não!!",
+        "{0} é massa oh !",
+        "{0} cara sei o que é não ! mas vou olhar !",
+        "Eh mesmo é ?",
+        "Ta bem....."
+      ]
+    }
+  ],
+  "CustomCommands": [
+    {
+      "Name": "/help",
+      "Type": "help",
+      "IsVisibleOnMenu": true,
+      "Texts": [
+        "Em que posso ajudar?"
+      ]
+    }
+  ],
+  "OnlyTextCommands": [
+    {
+      "Name": "/start",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [
+        "Bem vindo, sou Welobot e para começar a conhecer minhas habilidade, basta escrever '/help' para menu ou '/' para abrir minha caixa de seleção :)"
+      ]
+    },
+    {
+      "Name": "/info",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [
+        "\\/help - Habilita menu de ajuda\\r\\n\\t\\t    \\/news - Um lovepost para contagiar\\r\\n\\t\\t    \\/quote - Uma citacao para refletir\\r\\n\\t\\t    \\/photoquote - Uma imagem com citacao para compartilhar\\r\\n\\t\\t    \\/music - Uma musica para sentir\\r\\n\\t\\t    \\/playlist - Uma playlist para revigorar\\r\\n\\t\\t    \\/musicvideo - Um clipe para animar\\r\\n\\t\\t    \\/video - Videos para dar um UP\\r\\n\\t\\t    \\/movie - Sugestoes de um filme para encantar\\r\\n\\t\\t    \\/book - Sugestoes de um livro para devanear\\r\\n\\t\\t    Saiba das minhas atualiza\\u00E7\\u00F5es no meu canal - @welobotalk\\r\\n\\t\\t    Ah! Voc\\u00EA pode adicionar tamb\\u00E9m stickers com minhas emo\\u00E7\\u00F5es em - https:\\/\\/telegram.me\\/addstickers\\/welobot\\r\\n\\t\\t    Pare\\u00E7o ter algum problema? Avise meus criadores em support@welobot.love\\"
+      ]
+    }
+  ],
+  "GdocsCommands": [
+    {
+      "Name": "/book",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Books",
+      "Columns": [ 0, 1, 2 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/movie",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Movies",
+      "Columns": [ 0, 1, 2 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/music",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Music",
+      "Columns": [ 1 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/musicVideo",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "MusicVideos",
+      "Columns": [ 0, 1, 3 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/news",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "News",
+      "Columns": [ 1 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/photoquote",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Photoquotes",
+      "Columns": [ 0 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/playlist",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Playlists",
+      "Columns": [ 1, 2 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/quote",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "Quotes",
+      "Columns": [ 0, 1 ],
+      "Folder": "WeloBot"
+    },
+    {
+      "Name": "/video",
+      "IsRandom": false,
+      "WithKeyboard": false,
+      "IsVisibleOnMenu": true,
+      "Texts": [ "Espera um pouco" ],
+      "File": "videos",
+      "Columns": [ 1 ],
+      "Folder": "WeloBot"
+    }
+  ]
+}

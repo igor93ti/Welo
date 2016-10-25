@@ -55,6 +55,7 @@
     <Compile Include="Services\GSheets\ICommandTextGoogle.cs" />
     <Compile Include="Services\StandardCommandsService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Util\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

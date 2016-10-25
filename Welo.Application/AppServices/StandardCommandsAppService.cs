@@ -14,7 +14,22 @@ namespace Welo.Application.AppServices
     {
         private readonly IStandardCommandService _service;
 
-        public StandardCommandsAppService() : base()
+        private static StandardCommandsAppService _instance;
+
+        public static StandardCommandsAppService Intance
+        {
+            get
+            {
+                if (Intance == null)
+                    lock (typeof(StandardCommandsAppService))
+                        if (_instance == null)
+                            _instance = new StandardCommandsAppService();
+
+                return Intance;
+            }
+        }
+
+        private StandardCommandsAppService() : base()
         {
             _service = new StandardCommandsService(new StandardCommandRepository(), new CommandTextGoogle(new GSheetsService()));
             Service = _service;
@@ -22,5 +37,16 @@ namespace Welo.Application.AppServices
 
         public string GetResponseMessageToTrigger(string trigger)
             => _service.GetResponseMessageToTrigger(trigger);
+    }
+
+    [Serializable]
+    public class Lead
+
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Conversion { get; set; }
+        public string IdBot { get; set; }
+        public string Channel { get; set; }
     }
 }

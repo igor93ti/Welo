@@ -14,44 +14,33 @@ namespace Welo.Domain.Services
     {
         private readonly IStandardCommandRepository _standardCommandRepository;
         private readonly ICommandTextGoogle _commandTextGoogle;
+        private readonly Dictionary<CommandType, Func<StandardCommandEntity, string>> _commands;
 
         public StandardCommandsService(IStandardCommandRepository standardCommandRepository, ICommandTextGoogle commandTextGoogle)
             : base(standardCommandRepository)
         {
             _standardCommandRepository = standardCommandRepository;
             _commandTextGoogle = commandTextGoogle;
+            _commands = new Dictionary<CommandType, Func<StandardCommandEntity, string>>
+            {
+                {CommandType.GoogleDocs, CommandGoogle}
+            };
         }
 
         public string GetResponseMessageToTrigger(string trigger)
         {
             var command = _standardCommandRepository.Find(x => x.Trigger == trigger).FirstOrDefault();
-            IList<object> row = null;
-            if (command != null && command.CommandType == CommandType.GoogleDocs)
-            {
-                row = _commandTextGoogle.GetRandomRowGSheets(new GSheetQuery()
-                {
-                    Ranges = new string[] {command.TableName}
-                });
-            }
-            else
-                return string.Empty;
-
-            return GetMessage(row, command.FormatMask);
+            return command != null ? _commands[command.CommandType](command) : string.Empty;
         }
 
-        private static string GetMessage(IList<object> row, IList<int> formarMask)
+        private string CommandGoogle(StandardCommandEntity command)
         {
-            if (row == null)
-                return string.Empty;
-
-            var text = string.Empty;
-            foreach (var index in formarMask)
+            var row = _commandTextGoogle.GetRandomRowGSheets(new GSheetQuery()
             {
-                text += row.ElementAt(index).ToString();
-                if (index != formarMask.Last())
-                    text += " - ";
-            }
-            return text;
+                Ranges = new[] { command.TableName }
+            });
+
+            return command.GetMessageWithRandomQuote(row);
         }
     }
 }

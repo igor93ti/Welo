@@ -19,8 +19,9 @@ namespace Welo.Bot.Commands
         {
             var message = await argument;
 
-            var _appService = new StandardCommandsAppService();
-            var response = _appService.GetResponseMessageToTrigger(message.Text);
+            var _firebaseService = new FireBaseService();
+            _firebaseService.Push(message);
+            var response = StandardCommandsAppService.Intance.GetResponseMessageToTrigger(message.Text);
 
             if (string.IsNullOrEmpty(response))
             {
