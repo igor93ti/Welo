@@ -20,12 +20,12 @@ namespace Welo.Application.AppServices
         {
             get
             {
-                if (Intance == null)
+                if (_instance == null)
                     lock (typeof(StandardCommandsAppService))
                         if (_instance == null)
                             _instance = new StandardCommandsAppService();
 
-                return Intance;
+                return _instance;
             }
         }
 
@@ -43,9 +43,7 @@ namespace Welo.Application.AppServices
     public class Lead
 
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Conversion { get; set; }
         public string IdBot { get; set; }
         public string Channel { get; set; }
     }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using FireSharp;
 using FireSharp.Config;
 using FireSharp.Interfaces;
+using FireSharp.Response;
 using Microsoft.Bot.Connector;
 
 namespace Welo.Application.AppServices
@@ -16,11 +18,11 @@ namespace Welo.Application.AppServices
         {
             get
             {
-                if (Intance == null)
+                if (_instance == null)
                     lock (typeof(FireBaseService))
                         _instance = new FireBaseService();
 
-                return Intance;
+                return _instance;
             }
         }
 
@@ -35,35 +37,45 @@ namespace Welo.Application.AppServices
             _client = new FirebaseClient(config);
         }
 
-        public async void Push(IMessageActivity message)
+        public async void PushMessage(IMessageActivity message)
         {
-            var todo = new Lead
+            var lead = new Lead
             {
-                Id = Guid.NewGuid(),
+                IdUser = message.From.Id,
                 Name = message.From.Name,
-                IdBot = message.From.Id,
-                Channel = message.ChannelId,
-                Conversion = "teste"
+                Channel = message.ChannelId
             };
 
-            var response = _client.PushAsync("welobot/leads/", todo);
+            var commandStatics = await _client.GetAsync("welobot/statistics/");
+            
+            var statistics = commandStatics.ResultAs<CommandStatistics>();
 
-            var result = response.Result.ResultAs<Lead>();
+            var temp = new CommandStatistics
+            {
+                Name = message.Text.ToUpper(),
+                Usages = statistics?.Usages + 1 ?? 1
+            };
+
+            _client.SetAsync("welobot/statistics/" + message.Text.ToUpper(), temp);
+            _client.PushAsync("welobot/leads/", lead);
         }
 
         public async void Set()
         {
             var todo = new Lead
-            {
-                Id = Guid.NewGuid(),
-                Name = "Execute SET",
-                Conversion = "teste",
-                IdBot = "teste"
+            {   Name = "Execute SET",
+                IdUser = "teste"
             };
 
             var response = _client.SetAsync("welobot/leads/", todo);
 
             var result = response.Result.ResultAs<Lead>();
         }
+    }
+
+    public class CommandStatistics
+    {
+        public string Name { get; set; }
+        public int Usages { get; set; }
     }
 }
