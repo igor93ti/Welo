@@ -4,6 +4,7 @@ namespace Welo.Domain.Interfaces.Services
 {
     public interface IStandardCommandService : IService<StandardCommandEntity, int>
     {
-        string GetResponseMessageToTrigger(string trigger);
+        ResponseTrigger GetResponseMessageToTrigger(string trigger);
+        ResponseTrigger GetResponseMessageToTrigger(IBotCommand botCommand);
     }
 }

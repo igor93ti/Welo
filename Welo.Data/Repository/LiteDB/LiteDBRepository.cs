@@ -34,39 +34,39 @@ namespace Welo.Data.Repository.LiteDB
         {
         }
 
-        public bool Exists(TIdentifier id)
+        public virtual bool Exists(TIdentifier id)
         {
             return Collection.Exists(Query.EQ(keyName, new BsonValue(id)));
         }
 
-        public TEntity Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             Collection.Insert(entity);
 
             return entity;
         }
 
-        public Int64 Add(IEnumerable<TEntity> entities) => Collection.Insert(entities);
+        public virtual Int64 Add(IEnumerable<TEntity> entities) => Collection.Insert(entities);
 
-        public Int64 AddBulk(IEnumerable<TEntity> entity, int chunkSize = 32768) => Collection.Insert(entity);
+        public virtual Int64 AddBulk(IEnumerable<TEntity> entity, int chunkSize = 32768) => Collection.Insert(entity);
 
-        public long Count() => Collection.Count();
+        public virtual long Count() => Collection.Count();
 
-        public TEntity Get(TIdentifier id) => Collection.FindById(new BsonValue(id));
+        public virtual TEntity Get(TIdentifier id) => Collection.FindById(new BsonValue(id));
 
-        public IEnumerable<TEntity> GetAll() => Collection.FindAll();
+        public virtual IEnumerable<TEntity> GetAll() => Collection.FindAll();
 
-        public void Remove(TEntity entity) => Remove(entity.Id);
+        public virtual void Remove(TEntity entity) => Remove(entity.Id);
 
-        public void Remove(TIdentifier id) => Collection.Delete(new BsonValue(id));
+        public virtual void Remove(TIdentifier id) => Collection.Delete(new BsonValue(id));
 
-        public TEntity Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             Collection.Update(entity);
 
             return entity;
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> query) => Collection.Find(query);
+        public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> query) => Collection.Find(query);
     }
 }

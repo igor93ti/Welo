@@ -36,11 +36,16 @@
     <Compile Include="Entities\Base\IValidateableEntity.cs" />
     <Compile Include="Entities\GSheetContext.cs" />
     <Compile Include="Entities\GSheetQuery.cs" />
+    <Compile Include="Entities\IBotCommand.cs" />
+    <Compile Include="Entities\InfoCommandMask.cs" />
+    <Compile Include="Entities\LeadEntity.cs" />
+    <Compile Include="Entities\ResponseTrigger.cs" />
     <Compile Include="Interfaces\IGSheetContext.cs" />
     <Compile Include="Entities\QuotesResponsesEntity.cs" />
     <Compile Include="Entities\StandardCommandEntity.cs" />
     <Compile Include="Entities\ConfigurationEntity.cs" />
     <Compile Include="Entities\Enums\CommandType.cs" />
+    <Compile Include="Interfaces\Repositories\ILeadRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStandardCommandRepository.cs" />
     <Compile Include="Interfaces\Repositories\IConfigurationsRepository.cs" />
     <Compile Include="Interfaces\Repositories\Base\IRepository.cs" />
@@ -48,12 +53,14 @@
     <Compile Include="Interfaces\Repositories\Base\IValidatableRepository.cs" />
     <Compile Include="Interfaces\Repositories\Base\IValidatableRepositoryAsync.cs" />
     <Compile Include="Interfaces\Services\IStandardCommandService.cs" />
+    <Compile Include="Interfaces\Services\ILeadService.cs" />
     <Compile Include="Interfaces\Services\IServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Services\GSheets\IGSheetsService.cs" />
     <Compile Include="Services\GSheets\CommandTextGoogle.cs" />
     <Compile Include="Services\GSheets\ICommandTextGoogle.cs" />
-    <Compile Include="Services\StandardCommandsService.cs" />
+    <Compile Include="Services\LeadService.cs" />
+    <Compile Include="Services\BotCommandsService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Util\Singleton.cs" />
   </ItemGroup>
@@ -67,6 +74,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

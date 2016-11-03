@@ -8,24 +8,41 @@ using Welo.Domain.Entities.Enums;
 namespace Welo.Domain.Entities
 {
     [Serializable]
-    public class StandardCommandEntity : Entity<int>
+    public class StandardCommandEntity : Entity<int>, IBotCommand
     {
         public string Trigger { get; set; }
+
         public bool IsRandomResponse { get; set; }
+
         public bool IsVisibleOnMenu { get; set; }
+
         public CommandType CommandType { get; set; }
+
         public IList<int> FormatMask { get; set; }
+
+        public InfoCommandMask InfoMask { get; set; }
+
         public string TableName { get; set; }
+
         public string[] QuotesResponses { get; set; }
 
-        public string GetMessage(IList<object> row)
+        public ResponseTrigger FormatMessage(IList<object> row)
         {
+            var response = new ResponseTrigger();
+            if (InfoMask != null)
+            {
+                response.Title = InfoMask.Title >= 0 ? row[InfoMask.Title].ToString() : string.Empty;
+                response.Author = InfoMask.Author >= 0 ? row[InfoMask.Author].ToString() : string.Empty;
+                response.Quote = InfoMask.Quote >= 0 ? row[InfoMask.Quote].ToString() : string.Empty;
+                response.Link = InfoMask.Link >= 0 ? row[InfoMask.Link].ToString() : string.Empty;
+            }
+
             var strBuilder = new StringBuilder();
 
             foreach (var index in FormatMask)
             {
                 if (row[index] == null)
-                    return strBuilder.ToString();
+                    return response;
 
                 strBuilder.Append(row[index]);
 
@@ -33,16 +50,23 @@ namespace Welo.Domain.Entities
                     strBuilder.Append(" - ");
             }
 
-            return strBuilder.ToString();
+            response.MessageFormated = strBuilder.ToString();
+            return response;
         }
 
-        public string GetMessageWithRandomQuote(IList<object> row)
+        public ResponseTrigger GetMessageWithRandomQuote(IList<object> row)
+        {
+            var response = FormatMessage(row);
+            response.RandomQuote = GetRandomQuote();
+            return response;
+        }
+
+        public string GetRandomQuote()
         {
             var message = new StringBuilder();
             var rdm = new Random();
             var quoteResponse = QuotesResponses[rdm.Next(QuotesResponses.Length)];
             message.Append(quoteResponse);
-            message.AppendLine(GetMessage(row));
             return message.ToString();
         }
     }

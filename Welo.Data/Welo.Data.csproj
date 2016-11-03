@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CommandsContext.cs" />
     <Compile Include="StandardCommandRepository.cs" />
+    <Compile Include="LeadRepository.cs" />
     <Compile Include="ConfigurationsContext.cs" />
     <Compile Include="ConfigurationsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

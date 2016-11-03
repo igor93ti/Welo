@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using Welo.Application.AppServices;
 using Welo.Application.Interfaces;
 using Welo.Bot.ViewModels;
 using Welo.Domain.Entities;
@@ -11,9 +12,9 @@ namespace Welo.Bot.Controllers
     {
         private readonly IStandardCommandsAppService _appService;
 
-        public CommandsController(IStandardCommandsAppService appService)
+        public CommandsController()
         {
-            _appService = appService;
+            _appService = StandardCommandsAppService.Intance;
         }
 
         public IEnumerable<StandardCommandViewModel> Get()

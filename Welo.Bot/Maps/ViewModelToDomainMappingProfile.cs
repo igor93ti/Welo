@@ -9,6 +9,7 @@
         public ViewModelToDomainMappingProfile()
         {
             CreateMap<StandardCommandViewModel, StandardCommandEntity>();
+            CreateMap<LeadViewModel, LeadEntity>();
         }
     }
 }

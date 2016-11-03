@@ -5,6 +5,7 @@ using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using Microsoft.Bot.Connector;
+using Welo.Domain.Entities;
 
 namespace Welo.Application.AppServices
 {
@@ -39,15 +40,14 @@ namespace Welo.Application.AppServices
 
         public async void PushMessage(IMessageActivity message)
         {
-            var lead = new Lead
+            var lead = new LeadEntity
             {
-                IdUser = message.From.Id,
-                Name = message.From.Name,
-                Channel = message.ChannelId
+                FromId = message.From.Id,
+                FromName = message.From.Name,
+                LastTriggerUsed = message.ChannelId
             };
 
-            var commandStatics = await _client.GetAsync("welobot/statistics/");
-            
+            var commandStatics = await _client.GetAsync("welobot/statistics/" + message.Text.ToUpper());
             var statistics = commandStatics.ResultAs<CommandStatistics>();
 
             var temp = new CommandStatistics
@@ -56,20 +56,8 @@ namespace Welo.Application.AppServices
                 Usages = statistics?.Usages + 1 ?? 1
             };
 
+            _client.SetAsync("welobot/leads/" + lead.IdUser, lead);
             _client.SetAsync("welobot/statistics/" + message.Text.ToUpper(), temp);
-            _client.PushAsync("welobot/leads/", lead);
-        }
-
-        public async void Set()
-        {
-            var todo = new Lead
-            {   Name = "Execute SET",
-                IdUser = "teste"
-            };
-
-            var response = _client.SetAsync("welobot/leads/", todo);
-
-            var result = response.Result.ResultAs<Lead>();
         }
     }
 

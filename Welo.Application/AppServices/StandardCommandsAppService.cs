@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
+using System.Text;
+using HtmlAgilityPack;
 using Welo.Application.Interfaces;
 using Welo.Data;
 using Welo.Domain.Entities;
@@ -29,22 +33,44 @@ namespace Welo.Application.AppServices
             }
         }
 
-        private StandardCommandsAppService() : base()
+        public StandardCommandsAppService() : base()
         {
-            _service = new StandardCommandsService(new StandardCommandRepository(), new CommandTextGoogle(new GSheetsService()));
+            _service = new BotCommandsService(
+                new StandardCommandRepository(),
+                new CommandTextGoogle(new GSheetsService()));
             Service = _service;
         }
 
-        public string GetResponseMessageToTrigger(string trigger)
-            => _service.GetResponseMessageToTrigger(trigger);
-    }
+        public ResponseTrigger GetResponseMessageToTrigger(string trigger)
+        {
+            var responseMessageToTrigger = _service.GetResponseMessageToTrigger(trigger);
+            if (responseMessageToTrigger != null)
+                responseMessageToTrigger.Image = GetFirstImageLink(responseMessageToTrigger.Link);
+            return responseMessageToTrigger;
+        }
 
-    [Serializable]
-    public class Lead
+        public string GetFirstImageLink(string url)
+        {
+            var request = HttpWebRequest.Create(url) as HttpWebRequest;
+            var response = request.GetResponse() as HttpWebResponse;
 
-    {
-        public string Name { get; set; }
-        public string IdBot { get; set; }
-        public string Channel { get; set; }
+            var ResponseStream = response.GetResponseStream();
+
+            var document = new HtmlDocument();
+            document.Load(ResponseStream);
+            var ogMeta = document.DocumentNode.SelectNodes("//meta[@property]");
+
+            if (ogMeta != null)
+            {
+                var ogImage = document.DocumentNode.SelectNodes("//meta[@property]")
+                                      .Where(x => x.Attributes["property"].Value == "og:image");
+                if (ogImage.Any())
+                    return ogImage.FirstOrDefault().Attributes.FirstOrDefault(a => a.Name == "content").Value;
+                else
+                    return document.DocumentNode.SelectNodes("//img").FirstOrDefault()?.Attributes.FirstOrDefault(a => a.Name == "content")?.Value;
+            }
+            else
+                return document.DocumentNode.SelectNodes("//img").FirstOrDefault()?.Attributes.FirstOrDefault(a => a.Name == "content")?.Value;
+        }
     }
 }

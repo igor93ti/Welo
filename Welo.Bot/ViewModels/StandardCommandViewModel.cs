@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Welo.Domain.Entities;
 using Welo.Domain.Entities.Enums;
 
 namespace Welo.Bot.ViewModels
@@ -14,5 +15,6 @@ namespace Welo.Bot.ViewModels
         public IList<int> FormatMask { get; set; }
         public string TableName { get; set; }
         public string[] QuotesResponses { get; set; }
+        public InfoCommandMask InfoMask { get; set; }
     }
 }

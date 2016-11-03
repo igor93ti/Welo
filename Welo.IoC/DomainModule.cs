@@ -13,7 +13,7 @@ namespace Welo.IoC
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
 
-            builder.RegisterType<StandardCommandsService>()
+            builder.RegisterType<BotCommandsService>()
                    .As<IStandardCommandService>()
                    .InstancePerRequest();
         }

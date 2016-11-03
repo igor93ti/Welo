@@ -91,6 +91,10 @@
       <HintPath>..\packages\Google.GData.Spreadsheets.2.2.0.0\lib\Google.GData.Spreadsheets.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -182,8 +186,10 @@
     <Compile Include="AppServices\AppServiceBase.cs" />
     <Compile Include="AppServices\FireBaseService.cs" />
     <Compile Include="AppServices\GoogleTextCommandsAppService.cs" />
+    <Compile Include="AppServices\LeadAppService.cs" />
     <Compile Include="AppServices\StandardCommandsAppService.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
+    <Compile Include="Interfaces\ILeadAppService.cs" />
     <Compile Include="Interfaces\IStandardCommandAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
