@@ -5,6 +5,7 @@ namespace Welo.Domain.Entities.Enums
     [Serializable]
     public enum CommandType
     {
-        GoogleDocs
+        GoogleDocs,
+        Text
     }
 }

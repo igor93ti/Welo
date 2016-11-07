@@ -1,9 +1,19 @@
 ﻿[
-
+  {
+    "trigger": "/start",
+    "isRandomResponse": false,
+    "isVisibleOnMenu": false,
+    "withButtons": false,
+    "commandType": 1,
+    "quotesResponses": [
+      "Olá !! sou um bot legal !!"
+    ]
+  },
   {
     "trigger": "/gif",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0
@@ -23,6 +33,7 @@
     "trigger": "/book",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0,
@@ -44,6 +55,7 @@
     "trigger": "/movie",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0,
@@ -66,6 +78,7 @@
     "trigger": "/musicVideo",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0,
@@ -88,6 +101,7 @@
     "trigger": "/news",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       1
@@ -107,6 +121,7 @@
     "trigger": "/photoquote",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0
@@ -126,6 +141,7 @@
     "trigger": "/playlist",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       1,
@@ -146,6 +162,7 @@
     "trigger": "/quote",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       0,
@@ -166,6 +183,7 @@
     "trigger": "/video",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       1
@@ -185,6 +203,7 @@
     "trigger": "/music",
     "isRandomResponse": true,
     "isVisibleOnMenu": true,
+    "withButtons": true,
     "commandType": 0,
     "formatMask": [
       1

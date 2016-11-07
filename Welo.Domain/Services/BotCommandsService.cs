@@ -16,37 +16,52 @@ namespace Welo.Domain.Services
     {
         private readonly IStandardCommandRepository _standardCommandRepository;
         private readonly ICommandTextGoogle _commandTextGoogle;
-        private readonly Dictionary<CommandType, Func<IBotCommand, ResponseTrigger>> _commands;
+        private readonly Dictionary<CommandType, Func<IBotCommand, Option>> _commands;
 
         public BotCommandsService(IStandardCommandRepository standardCommandRepository, ICommandTextGoogle commandTextGoogle)
             : base(standardCommandRepository)
         {
             _standardCommandRepository = standardCommandRepository;
             _commandTextGoogle = commandTextGoogle;
-            _commands = new Dictionary<CommandType, Func<IBotCommand, ResponseTrigger>>
+            _commands = new Dictionary<CommandType, Func<IBotCommand, Option>>
             {
-                {CommandType.GoogleDocs, CommandGoogle}
+                {CommandType.GoogleDocs, CommandGoogle},
+                {CommandType.Text, CommandText}
             };
         }
 
-        public ResponseTrigger GetResponseMessageToTrigger(string trigger)
+        public Option GetResponseMessageToTrigger(string trigger)
         {
             var command = _standardCommandRepository.Find(x => x.Trigger == trigger).FirstOrDefault();
             return GetResponseMessageToTrigger(command);
         }
 
-        public ResponseTrigger GetResponseMessageToTrigger(IBotCommand botCommand) 
+        public Option GetResponseMessageToTrigger(IBotCommand botCommand)
             => botCommand != null ? _commands[botCommand.CommandType](botCommand) : null;
 
-        private ResponseTrigger CommandGoogle(IBotCommand command)
+        private Option CommandGoogle(IBotCommand command)
         {
             var row = _commandTextGoogle.GetRandomRowGSheets(new GSheetQuery()
             {
                 Ranges = new[] { command.TableName }
             });
-            var response = command.GetMessageWithRandomQuote(row);
+            var response = command.GetResponse(row);
             response.Trigger = command.Trigger;
             return response;
+        }
+
+        private Option CommandText(IBotCommand command)
+        {
+            var response = command.GetResponseQuote();
+            response.WithButtons = command.WithButtons;
+            return command.GetResponseQuote();
+        }
+
+        public Option GetWaitMessage(string trigger)
+        {
+            var command = _standardCommandRepository.Find(x => x.Trigger == trigger).FirstOrDefault();
+
+            return command != null ? command.GetResponseQuote() : null;
         }
     }
 }

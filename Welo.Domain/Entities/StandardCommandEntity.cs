@@ -26,9 +26,13 @@ namespace Welo.Domain.Entities
 
         public string[] QuotesResponses { get; set; }
 
-        public ResponseTrigger FormatMessage(IList<object> row)
+        public string Name { get; set; }
+
+        public bool WithButtons { get; set; }
+
+        public Option FormatMessage(IList<object> row)
         {
-            var response = new ResponseTrigger();
+            var response = new Option();
             if (InfoMask != null)
             {
                 response.Title = InfoMask.Title >= 0 ? row[InfoMask.Title].ToString() : string.Empty;
@@ -54,20 +58,24 @@ namespace Welo.Domain.Entities
             return response;
         }
 
-        public ResponseTrigger GetMessageWithRandomQuote(IList<object> row)
-        {
-            var response = FormatMessage(row);
-            response.RandomQuote = GetRandomQuote();
-            return response;
-        }
+        public Option GetResponse(IList<object> row) => FormatMessage(row);
 
-        public string GetRandomQuote()
+        public Option GetResponseQuote()
         {
             var message = new StringBuilder();
-            var rdm = new Random();
-            var quoteResponse = QuotesResponses[rdm.Next(QuotesResponses.Length)];
-            message.Append(quoteResponse);
-            return message.ToString();
+            string quoteResponse = null;
+            if (IsRandomResponse)
+            {
+                var rdm = new Random();
+                quoteResponse = QuotesResponses[rdm.Next(QuotesResponses.Length)];
+                message.Append(quoteResponse);
+            }
+            else
+                foreach (var item in QuotesResponses)
+                    message.AppendLine(item);
+
+            var response = message.ToString();
+            return new Option { Quote = response, MessageFormated = response };
         }
     }
 }

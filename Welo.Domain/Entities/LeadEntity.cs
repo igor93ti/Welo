@@ -19,5 +19,6 @@ namespace Welo.Domain.Entities
         public string Name { get; set; }
         public string FromId { get; set; }
         public string Activity { get; set; }
+        public string Context { get; set; }
     }
 }

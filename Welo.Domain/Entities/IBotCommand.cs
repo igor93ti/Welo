@@ -6,9 +6,19 @@ namespace Welo.Domain.Entities
 {
     public interface IBotCommand : IEntity<int>
     {
-        string Trigger { get; set; }
         CommandType CommandType { get; set; }
+        IList<int> FormatMask { get; set; }
+        InfoCommandMask InfoMask { get; set; }
+        bool IsRandomResponse { get; set; }
+        bool IsVisibleOnMenu { get; set; }
+        string Name { get; set; }
+        string[] QuotesResponses { get; set; }
         string TableName { get; set; }
-        ResponseTrigger GetMessageWithRandomQuote(IList<object> row);
+        string Trigger { get; set; }
+        bool WithButtons { get; set; }
+
+        Option FormatMessage(IList<object> row);
+        Option GetResponse(IList<object> row);
+        Option GetResponseQuote();
     }
 }

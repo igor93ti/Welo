@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Welo.Domain.Entities.Base;
 
 namespace Welo.Domain.Entities
 {
     [Serializable]
-    public class ResponseTrigger : Entity<int>
+    public class Option : Entity<int>
     {
         public string Title { get; set; }
         public string Author { get; set; }
@@ -12,8 +13,10 @@ namespace Welo.Domain.Entities
         public string Link { get; set; }
 
         public string MessageFormated { get; set; }
-        public string RandomQuote { get; set; }
         public string Image { get; set; }
         public string Trigger { get; set; }
+
+        public IList<ButtonOption> Buttons { get; set; }
+        public bool WithButtons { get; internal set; }
     }
 }

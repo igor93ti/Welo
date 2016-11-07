@@ -24,7 +24,7 @@ namespace Welo.Bot.App_Start
             builder.RegisterModule(new DialogModule());
 
             //// register some configuration
-            builder.Register(c => new BotIdResolver(BotId)).AsImplementedInterfaces().SingleInstance();
+            //builder.Register(c => new BotIdResolver(BotId)).AsImplementedInterfaces().SingleInstance();
 
             builder
               .Register<Func<IDialog<object>>>(c =>

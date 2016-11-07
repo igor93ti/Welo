@@ -78,12 +78,12 @@
       <HintPath>..\packages\Flurl.Http.1.0.1\lib\net45\Flurl.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Bot.Builder, Version=3.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Builder.3.2.1\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Builder, Version=3.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Builder.3.3.1\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Bot.Connector, Version=3.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Builder.3.2.1\lib\net46\Microsoft.Bot.Connector.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Connector, Version=3.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Builder.3.3.1\lib\net46\Microsoft.Bot.Connector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -227,11 +227,15 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Commands\IStartUpCommand.cs" />
+    <Compile Include="Commands\RootDialog.cs" />
     <Compile Include="Commands\SubscriberJob.cs" />
     <Compile Include="Commands\StartUpCommand.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Controllers\LeadsController.cs" />
     <Compile Include="Controllers\CommandsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Commands\RandomCommand.cs" />
+    <Compile Include="Commands\SubscribeCommand.cs" />
     <Compile Include="Filters\RollbarExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,14 +258,16 @@
     <Content Include="App_Data\client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DataFile\CommandsContext" />
     <Content Include="App_Data\client_secret.2json" />
     <Content Include="App_Data\config.json" />
     <Content Include="App_Data\credentials.json\Google.Apis.Auth.OAuth2.Responses.TokenResponse-eugenio00" />
+    <Content Include="DataFile\commands.json" />
+    <Content Include="DataFile\config.json" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\welobot.pubxml" />
+    <None Include="Properties\PublishProfiles\welobotprod.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

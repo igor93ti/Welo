@@ -27,37 +27,32 @@ namespace Welo.Bot.Commands
         public async void Execute(IJobExecutionContext context)
         {
             //var leads = _leadAppService.GetAll().ToList();
-            //var command = RaffleCommand();
-            //if (command == null)
-            //    return;
-
             //foreach (var leadEntity in leads)
             //{
             //    var activity = JsonConvert.DeserializeObject<Activity>(leadEntity.Activity);
             //    if (string.IsNullOrEmpty(leadEntity.Activity))
             //        continue;
+                
 
-            //    CreateCardMessage(activity, leadEntity.LastTriggerUsed);
+            //    var reply = activity.CreateReply("");
+            //    reply.Text = "Wake up!";
+            //    ConnectorClient connector = new ConnectorClient(new Uri(reply.ServiceUrl));
 
-            //    var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-            //    await connector.Conversations.SendToConversationAsync((Activity)activity);
+            //    CreateCardMessage(reply, leadEntity.LastTriggerUsed);
+                
+            //    await connector.Conversations.ReplyToActivityAsync(reply);
             //}
-
         }
-
-        private static StandardCommandEntity RaffleCommand()
-        {
-            var listCommmands = StandardCommandsAppService.Intance.GetAll();
-            if (!listCommmands.Any())
-                return null;
-
-            var rdn = new Random();
-            return listCommmands.ElementAt(rdn.Next(listCommmands.Count()));
-        }
-
+       
         private static void CreateCardMessage(IMessageActivity activity, string trigger)
         {
-            var response = StandardCommandsAppService.Intance.GetResponseMessageToTrigger(trigger);
+            if (string.IsNullOrEmpty(trigger))
+                return;
+
+            var response = StandardCommandsAppService.Intance.GeneralCommand(trigger);
+            if (response == null)
+                return;
+
             var cardButtons = new List<CardAction>();
             var plButton = new CardAction()
             {

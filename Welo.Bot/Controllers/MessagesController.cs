@@ -1,17 +1,19 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Autofac;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
 using RollbarDotNet;
 using Welo.Application.AppServices;
 using Welo.Bot.Commands;
-using Welo.Domain.Entities;
 using Exception = System.Exception;
 
 namespace Welo.Bot
@@ -19,26 +21,19 @@ namespace Welo.Bot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        private Dictionary<string, IDialog<object>> commandsDefault;
+
         public async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
             try
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    LeadAppService.Intance.SaveSubscriber(new LeadEntity()
-                    {
-                        IdUser = activity.From.Id,
-                        Name = activity.From.Name,
-                        LastTriggerUsed = activity.Text,
-                        ChannelConversion = activity.ChannelId,
-                        Activity = JsonConvert.SerializeObject(activity)
-                    });
-                    
-                    await Conversation.SendAsync(activity, () => new StartUpCommand());
+                    await Conversation.SendAsync(activity, () =>new RootDialog());
                 }
                 else
                 {
-                    HandleSystemMessage(activity);
+                    await HandleSystemMessage(activity);
                 }
             }
             catch (Exception e)
@@ -73,25 +68,54 @@ namespace Welo.Bot
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        private Activity HandleSystemMessage(Activity message)
+        private async Task HandleSystemMessage(Activity activity)
         {
-            if (message.Type == ActivityTypes.DeleteUserData)
+            if (activity.Type == ActivityTypes.DeleteUserData)
             {
             }
-            else if (message.Type == ActivityTypes.ConversationUpdate)
+            else if (activity.Type == ActivityTypes.ConversationUpdate)
             {
+                IConversationUpdateActivity update = activity;
+                using (var scope = DialogModule.BeginLifetimeScope(Conversation.Container, activity))
+                {
+                    var client = scope.Resolve<IConnectorClient>();
+                    if (update.MembersAdded.Any())
+                    {
+                        var reply = activity.CreateReply();
+                        foreach (var newMember in update.MembersAdded)
+                        {
+                            if (newMember.Id != activity.Recipient.Id)
+                            {
+                                reply.Text = $"Welcome {newMember.Name}!";
+                            }
+                            else
+                            {
+                                reply.Text = $"Welcome {activity.From.Name}";
+                            }
+                            await client.Conversations.ReplyToActivityAsync(reply);
+                        }
+                    }
+                }
             }
-            else if (message.Type == ActivityTypes.ContactRelationUpdate)
+            else if (activity.Type == ActivityTypes.ContactRelationUpdate)
             {
-            }
-            else if (message.Type == ActivityTypes.Typing)
-            {
-            }
-            else if (message.Type == ActivityTypes.Ping)
-            {
-            }
+                var reply = activity.CreateReply("Bem vindos 2x");
 
-            return null;
+                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
+                await connector.Conversations.ReplyToActivityAsync(reply);
+            }
+            else if (activity.Type == ActivityTypes.Typing)
+            {
+                var reply = activity.CreateReply("digitando");
+
+                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
+                await connector.Conversations.ReplyToActivityAsync(reply);
+            }
+            else if (activity.Type == ActivityTypes.Ping)
+            {
+            }
         }
     }
 }
