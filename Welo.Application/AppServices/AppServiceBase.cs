@@ -10,24 +10,29 @@ namespace Welo.Application
     [Serializable]
     public class AppServiceBase<TEntity, TIdentifier> : IAppServiceBase<TEntity, TIdentifier> where TEntity : IEntity<TIdentifier>, new() where TIdentifier : struct
     {
-        internal IService<TEntity, TIdentifier> Service;
+        public readonly IService<TEntity, TIdentifier> _service;
 
-        public bool Exists(TIdentifier id) => Service.Exists(id);
+        public AppServiceBase(IService<TEntity, TIdentifier> service)
+        {
+            _service = service;
+        }
 
-        public TEntity Add(TEntity entity) => Service.Add(entity);
+        public bool Exists(TIdentifier id) => _service.Exists(id);
 
-        public TEntity Update(TEntity entity) => Service.Update(entity);
+        public TEntity Add(TEntity entity) => _service.Add(entity);
 
-        public void Remove(TEntity entity) => Service.Remove(entity);
+        public TEntity Update(TEntity entity) => _service.Update(entity);
 
-        public void Remove(TIdentifier id) => Service.Remove(id);
+        public void Remove(TEntity entity) => _service.Remove(entity);
 
-        public TEntity Get(TIdentifier id) => Service.Get(id);
+        public void Remove(TIdentifier id) => _service.Remove(id);
 
-        public IEnumerable<TEntity> GetAll() => Service.GetAll();
+        public TEntity Get(TIdentifier id) => _service.Get(id);
 
-        public long Count() => Service.Count();
+        public IEnumerable<TEntity> GetAll() => _service.GetAll();
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> query) => Service.Find(query);
+        public long Count() => _service.Count();
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> query) => _service.Find(query);
     }
 }

@@ -6,13 +6,10 @@ using System.Net;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Welo.Application.Interfaces;
-using Welo.Data;
 using Welo.Domain.Entities;
+using Welo.Domain.Entities.Enums;
 using Welo.Domain.Interfaces.Services;
 using Welo.Domain.Models;
-using Welo.Domain.Services;
-using Welo.Domain.Services.GSheets;
-using Welo.GoogleDocsData;
 
 namespace Welo.Application.AppServices
 {
@@ -20,30 +17,14 @@ namespace Welo.Application.AppServices
     public class StandardCommandsAppService : AppServiceBase<StandardCommandEntity, int>, IStandardCommandsAppService
     {
         private readonly IStandardCommandService _service;
-
-        public StandardCommandsAppService() : base()
-        {
-            _service = new BotCommandsService(
-                new StandardCommandRepository(),
-                new CommandTextGoogle(new GSheetsService()));
-        }
-
-        private static StandardCommandsAppService _instance;
-        public static StandardCommandsAppService Intance
-        {
-            get
-            {
-                if (_instance == null)
-                    lock (typeof(StandardCommandsAppService))
-                        if (_instance == null)
-                            _instance = new StandardCommandsAppService();
-
-                return _instance;
-            }
-        }
-
-        private Option responseTrigger;
+        private ResponseTrigger ResponseTriggerModel;
         private Config config;
+
+        public StandardCommandsAppService(IStandardCommandService service) : base(service)
+        {
+            _service = service;
+        }
+
         private Config Configs
         {
             get
@@ -60,32 +41,15 @@ namespace Welo.Application.AppServices
             }
         }
 
-        public void Init()
-        {
-            var appDomain = AppDomain.CurrentDomain;
-            var basePath = appDomain.BaseDirectory;
-            var pathDirectory = Path.Combine(basePath, "DataFile");
-            var path = Path.Combine(pathDirectory, "commands.json");
-
-            foreach (var item in _service.GetAll())
-                _service.Remove(item);
-
-            var lista = JsonConvert.DeserializeObject<List<StandardCommandEntity>>(File.ReadAllText(path));
-
-            foreach (var item in lista)
-                _service.Add(item);
-
-        }
-
         public CollectionOptions HelpCommand()
         {
-            Config config = Configs;
+            var config = Configs;
 
             var commands = _service.Find(x => x.IsVisibleOnMenu).ToList();
             var response = new CollectionOptions();
             foreach (var cmd in commands)
             {
-                response.options.Add(new Option
+                response.options.Add(new ResponseTrigger
                 {
                     Trigger = cmd.Trigger,
                     Title = cmd.Name ?? cmd.Trigger
@@ -95,7 +59,7 @@ namespace Welo.Application.AppServices
             return response;
         }
 
-        public Option RandomCommand()
+        public ResponseTrigger RandomCommand()
         {
             var commands = _service.GetAll();
             var rdm = new Random();
@@ -103,25 +67,25 @@ namespace Welo.Application.AppServices
             return GetResponseTo(trigger).WithImageFromLink().Build;
         }
 
-        public Option GeneralCommand(string trigger)
+        public ResponseTrigger GeneralCommand(string trigger)
         {
-            var response = GetResponseTo(trigger).Build;
+            var response = GetResponseTo(trigger).WithImageFromLink().Build;
             if (response == null)
                 return null;
-            
+
             response.Buttons = GetButtonsDefault();
             return response;
         }
 
-        public IList<ButtonOption> GetButtonsDefault()
+        private IList<ButtonOption> GetButtonsDefault()
         {
-            if (responseTrigger == null)
+            if (ResponseTriggerModel == null)
                 return null;
 
             var lista = new List<ButtonOption>();
             var maisUm = new ButtonOption()
             {
-                Value = responseTrigger.Trigger,
+                Value = ResponseTriggerModel.Trigger,
                 Type = TypeButton.PostBack,
                 Title = "Mais um"
             };
@@ -140,8 +104,16 @@ namespace Welo.Application.AppServices
                 Title = "Help"
             };
 
+            var subscribe = new ButtonOption()
+            {
+                Value = "subscribe|" + ResponseTriggerModel.Trigger,
+                Type = TypeButton.PostBack,
+                Title = "Subscribe"
+            };
+
             lista.Add(maisUm);
             lista.Add(randomCommmand);
+            lista.Add(subscribe);
             lista.Add(help);
 
             return lista;
@@ -149,25 +121,25 @@ namespace Welo.Application.AppServices
 
         public StandardCommandsAppService GetWaitMessage(string trigger)
         {
-            responseTrigger = _service.GetWaitMessage(trigger);
+            ResponseTriggerModel = _service.GetResponseMessageToTrigger(trigger);
             return this;
         }
 
         private StandardCommandsAppService GetResponseTo(string trigger)
         {
-            responseTrigger = _service.GetResponseMessageToTrigger(trigger);
-            if (responseTrigger != null)
-                responseTrigger.Trigger = trigger;
+            ResponseTriggerModel = _service.GetResponseMessageToTrigger(trigger);
+            if (ResponseTriggerModel != null)
+                ResponseTriggerModel.Trigger = trigger;
 
             return this;
         }
 
         private StandardCommandsAppService WithImageFromLink()
         {
-            if (responseTrigger == null)
+            if (ResponseTriggerModel == null)
                 return this;
 
-            var link = responseTrigger.Link;
+            var link = ResponseTriggerModel.Link;
             Uri uriResult;
 
             bool uriValid = Uri.TryCreate(link, UriKind.Absolute, out uriResult)
@@ -190,17 +162,17 @@ namespace Welo.Application.AppServices
                 var ogImage = document.DocumentNode.SelectNodes("//meta[@property]")
                                       .Where(x => x.Attributes["property"].Value == "og:image");
                 if (ogImage.Any())
-                    responseTrigger.Image = ogImage.FirstOrDefault().Attributes.FirstOrDefault(a => a.Name == "content").Value;
+                    ResponseTriggerModel.Image = ogImage.FirstOrDefault().Attributes.FirstOrDefault(a => a.Name == "content").Value;
                 else
-                    responseTrigger.Image = document.DocumentNode.SelectNodes("//img")?.FirstOrDefault()?.Attributes?.FirstOrDefault(a => a.Name == "content")?.Value;
+                    ResponseTriggerModel.Image = document.DocumentNode.SelectNodes("//img")?.FirstOrDefault()?.Attributes?.FirstOrDefault(a => a.Name == "content")?.Value;
             }
             else
-                responseTrigger.Image = document.DocumentNode.SelectNodes("//img")?.FirstOrDefault()?.Attributes?.FirstOrDefault(a => a != null && a.Name == "content")?.Value;
+                ResponseTriggerModel.Image = document.DocumentNode.SelectNodes("//img")?.FirstOrDefault()?.Attributes?.FirstOrDefault(a => a != null && a.Name == "content")?.Value;
 
             return this;
         }
 
-        private Option Build
-            => responseTrigger;
+        private ResponseTrigger Build
+            => ResponseTriggerModel;
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Welo.Domain.Entities;
-using Welo.Domain.Entities.Enums;
 using Welo.Domain.Interfaces.Repositories;
 using Welo.Domain.Interfaces.Services;
-using Welo.Domain.Services.GSheets;
 
 namespace Welo.Domain.Services
 {
@@ -22,7 +19,7 @@ namespace Welo.Domain.Services
 
         public void SaveSubscriber(LeadEntity leadEntity)
         {
-            var lead =_leadRepository.Find(x => x.IdUser == leadEntity.IdUser).SingleOrDefault();
+            var lead =_leadRepository.Find(x => x.UserId == leadEntity.UserId).SingleOrDefault();
 
             if (lead == null)
                 _leadRepository.Add(leadEntity);

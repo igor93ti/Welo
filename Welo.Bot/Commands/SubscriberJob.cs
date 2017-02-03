@@ -1,55 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Internals;
-using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
 using Quartz;
-using Welo.Application.AppServices;
-using Welo.Domain.Entities;
+using Welo.Application.Interfaces;
+using Welo.Bot.Commands.Interfaces;
 
 namespace Welo.Bot.Commands
 {
 
     public class SubscriberJob : IJob
     {
-        private LeadAppService _leadAppService;
-        private StartUpCommand _command;
-        public SubscriberJob()
-        {
-            _leadAppService = LeadAppService.Intance;
-            _command = new StartUpCommand();
-        }
+        private IStartUpCommand _command;
+        private ILeadAppService _leadAppService;
+        IStandardCommandsAppService _service;
 
+        public SubscriberJob(IStartUpCommand command, IStandardCommandsAppService service, ILeadAppService leadAppService)
+        {
+            _leadAppService = leadAppService;
+            _command = command;
+            _service = service;
+        }
+    
         public async void Execute(IJobExecutionContext context)
         {
-            //var leads = _leadAppService.GetAll().ToList();
-            //foreach (var leadEntity in leads)
-            //{
-            //    var activity = JsonConvert.DeserializeObject<Activity>(leadEntity.Activity);
-            //    if (string.IsNullOrEmpty(leadEntity.Activity))
-            //        continue;
-                
+            var leads = _leadAppService.GetAll();
 
-            //    var reply = activity.CreateReply("");
-            //    reply.Text = "Wake up!";
-            //    ConnectorClient connector = new ConnectorClient(new Uri(reply.ServiceUrl));
+            foreach (var item in leads)
+            {
+                var incomingMessageServiceUrl = item.ServiceUrl;
+                var botAccount = new ChannelAccount(name: item.BotName, id: item.BotId);
+                var userAccount = new ChannelAccount(name: item.UserName, id: item.UserId);
 
-            //    CreateCardMessage(reply, leadEntity.LastTriggerUsed);
-                
-            //    await connector.Conversations.ReplyToActivityAsync(reply);
-            //}
+                var connector = new ConnectorClient(new Uri(incomingMessageServiceUrl));
+                var conversationId = await connector.Conversations.CreateDirectConversationAsync(botAccount, userAccount);
+                IMessageActivity message = Activity.CreateMessageActivity();
+                message.From = botAccount;
+                message.Recipient = userAccount;
+                message.Conversation = new ConversationAccount(id: conversationId.Id);
+                message.Text = "Hello";
+                message.Locale = "pt-Br";
+                await connector.Conversations.SendToConversationAsync((Activity)message);
+            }
         }
-       
-        private static void CreateCardMessage(IMessageActivity activity, string trigger)
+
+        private void CreateCardMessage(IMessageActivity activity, string trigger)
         {
             if (string.IsNullOrEmpty(trigger))
                 return;
 
-            var response = StandardCommandsAppService.Intance.GeneralCommand(trigger);
+            var response = _service.GeneralCommand(trigger);
             if (response == null)
                 return;
 

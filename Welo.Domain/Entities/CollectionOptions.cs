@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Welo.Domain.Entities.Base;
 
 namespace Welo.Domain.Entities
 {
@@ -10,10 +9,10 @@ namespace Welo.Domain.Entities
     {
         public CollectionOptions()
         {
-            options = new List<Option>();
+            options = new List<ResponseTrigger>();
         }
 
         public string Description { get; set; }
-        public IList<Option> options { get; set; }
+        public IList<ResponseTrigger> options { get; set; }
     }
 }

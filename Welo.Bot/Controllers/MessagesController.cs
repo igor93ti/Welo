@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
@@ -12,7 +12,6 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Connector;
 using RollbarDotNet;
-using Welo.Application.AppServices;
 using Welo.Bot.Commands;
 using Exception = System.Exception;
 
@@ -21,15 +20,17 @@ namespace Welo.Bot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        private Dictionary<string, IDialog<object>> commandsDefault;
-
-        public async Task<HttpResponseMessage> Post([FromBody] Activity activity)
+        public async Task<HttpResponseMessage> Post([FromBody] Activity activity, CancellationToken token)
         {
             try
             {
                 if (activity.Type == ActivityTypes.Message)
                 {
-                    await Conversation.SendAsync(activity, () =>new RootDialog());
+                    using (var scope = DialogModule.BeginLifetimeScope(Conversation.Container, activity))
+                    {
+                        var dialog = scope.Resolve<IRootDialog>();
+                        await Conversation.SendAsync(activity, () => dialog);
+                    }
                 }
                 else
                 {

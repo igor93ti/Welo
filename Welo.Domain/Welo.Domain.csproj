@@ -34,19 +34,19 @@
     <Compile Include="Entities\Base\EntityValidationResult.cs" />
     <Compile Include="Entities\Base\IEntity.cs" />
     <Compile Include="Entities\Base\IValidateableEntity.cs" />
-    <Compile Include="Entities\ButtonsOption.cs" />
+    <Compile Include="Entities\ButtonOption.cs" />
     <Compile Include="Entities\CollectionOptions.cs" />
-    <Compile Include="Entities\GSheetContext.cs" />
-    <Compile Include="Entities\GSheetQuery.cs" />
-    <Compile Include="Entities\IBotCommand.cs" />
-    <Compile Include="Entities\InfoCommandMask.cs" />
-    <Compile Include="Entities\LeadEntity.cs" />
-    <Compile Include="Entities\ResponseTrigger.cs" />
-    <Compile Include="Interfaces\IGSheetContext.cs" />
-    <Compile Include="Entities\QuotesResponsesEntity.cs" />
-    <Compile Include="Entities\StandardCommandEntity.cs" />
     <Compile Include="Entities\ConfigurationEntity.cs" />
     <Compile Include="Entities\Enums\CommandType.cs" />
+    <Compile Include="Entities\Enums\TypeButton.cs" />
+    <Compile Include="Entities\GDocs\GSheetQuery.cs" />
+    <Compile Include="Entities\InfoCommandMask.cs" />
+    <Compile Include="Entities\LeadEntity.cs" />
+    <Compile Include="Entities\QuotesResponsesEntity.cs" />
+    <Compile Include="Entities\ResponseTrigger.cs" />
+    <Compile Include="Entities\StandardCommandEntity.cs" />
+    <Compile Include="Interfaces\IBotCommand.cs" />
+    <Compile Include="Interfaces\IGSheetContext.cs" />
     <Compile Include="Interfaces\Repositories\ILeadRepository.cs" />
     <Compile Include="Interfaces\Repositories\IStandardCommandRepository.cs" />
     <Compile Include="Interfaces\Repositories\IConfigurationsRepository.cs" />
@@ -65,7 +65,6 @@
     <Compile Include="Services\LeadService.cs" />
     <Compile Include="Services\BotCommandsService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Util\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

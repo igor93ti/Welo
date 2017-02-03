@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using Example;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
-using Google.Apis.Util.Store;
 using Newtonsoft.Json;
-using Welo.Domain.Entities;
 using Welo.Domain.Interfaces.Services.GSheets;
 
 namespace Welo.GoogleDocsData

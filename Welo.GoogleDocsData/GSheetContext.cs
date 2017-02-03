@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using Welo.Domain.Interfaces;
+﻿using Welo.Domain.Interfaces;
 
-namespace Welo.Domain.Entities
+namespace Welo.GoogleDocsData
 {
     public class GSheetContext : IGSheetContext
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Welo.Domain.Entities;
+using Welo.Domain.Entities.GDocs;
 
 namespace Welo.Domain.Services.GSheets
 {

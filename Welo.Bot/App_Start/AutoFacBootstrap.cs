@@ -1,12 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
-using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
-using Welo.Application.Interfaces;
-using Welo.Bot.Commands;
 using Welo.IoC;
 
 namespace Welo.Bot.App_Start
@@ -26,14 +22,14 @@ namespace Welo.Bot.App_Start
             //// register some configuration
             //builder.Register(c => new BotIdResolver(BotId)).AsImplementedInterfaces().SingleInstance();
 
-            builder
-              .Register<Func<IDialog<object>>>(c =>
-              {
-                  var scope = c.Resolve<ILifetimeScope>();
-                  return () => new StartUpCommand();
-              })
-              .AsSelf()
-              .InstancePerLifetimeScope();
+            //builder
+            //  .Register<Func<IDialog<object>>>(c =>
+            //  {
+            //      var scope = c.Resolve<ILifetimeScope>();
+            //      return () => new StartUpCommand();
+            //  })
+              //.AsSelf()
+              //.InstancePerLifetimeScope();
 
             builder.RegisterModule<ApplicationModule>();
             builder.RegisterModule<DomainModule>();

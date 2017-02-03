@@ -12,10 +12,14 @@ namespace Welo.IoC
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
+            
+            builder.RegisterType<LeadService>()
+                   .As<ILeadService>()
+                   .InstancePerLifetimeScope();
 
             builder.RegisterType<BotCommandsService>()
                    .As<IStandardCommandService>()
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
         }
     }
 }

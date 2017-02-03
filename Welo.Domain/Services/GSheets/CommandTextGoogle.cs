@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common.CommandTrees.ExpressionBuilder;
-using System.Linq;
-using Welo.Domain.Entities;
+using Welo.Domain.Entities.GDocs;
 using Welo.Domain.Interfaces.Services.GSheets;
 
 namespace Welo.Domain.Services.GSheets

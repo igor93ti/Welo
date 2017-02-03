@@ -1,20 +1,18 @@
-﻿namespace Welo.Bot.Maps
-{
-    using AutoMapper;
-    using Domain.Entities;
-    using Microsoft.Bot.Connector;
-    using ViewModels;
+﻿using AutoMapper;
+using Welo.Application.Models;
+using Welo.Domain.Entities;
+using Welo.Domain.Entities.Enums;
 
-    public class DomainToViewModelMappingProfile : Profile
+namespace Welo.Application.Maps
+{
+    public class DomainToModelMappingProfile : Profile
     {
-        public DomainToViewModelMappingProfile()
+        public DomainToModelMappingProfile()
         {
-            CreateMap<StandardCommandEntity, StandardCommandViewModel>();
-            CreateMap<LeadEntity, LeadViewModel>();
-            CreateMap<CardAction, TypeButton>();
-            CreateMap<TypeButton, CardAction>();
-            CreateMap<TypeButton, string>().ConvertUsing(src => src.ToString());
-            CreateMap<TypeButton, string>().ConvertUsing(src => src.ToString());
+            CreateMap<StandardCommandEntity, StandardCommandModel>();
+            CreateMap<LeadEntity, LeadModel>();
+            CreateMap<ResponseTrigger, ResponseTriggerModel>();
+            CreateMap<InfoCommandMask, InfoCommandMaskModel>();
 
             CreateMap<TypeButton, string>().ConvertUsing(value =>
             {

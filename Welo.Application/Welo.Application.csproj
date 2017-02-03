@@ -35,6 +35,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
@@ -191,6 +195,19 @@
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\ILeadAppService.cs" />
     <Compile Include="Interfaces\IStandardCommandAppService.cs" />
+    <Compile Include="Maps\AutoMapperConfig.cs" />
+    <Compile Include="Maps\DomainToModelMappingProfile.cs" />
+    <Compile Include="Maps\ModelToDomainMappingProfile.cs" />
+    <Compile Include="Models\ButtonOptionModel.cs" />
+    <Compile Include="Models\CollectionOptionsModel.cs" />
+    <Compile Include="Models\CommandTypeViewModel.cs" />
+    <Compile Include="Models\ConfigModel.cs" />
+    <Compile Include="Models\InfoCommandMaskModel.cs" />
+    <Compile Include="Models\LeadModel.cs" />
+    <Compile Include="Models\QuotesResponsesViewModel.cs" />
+    <Compile Include="Models\ResponseTriggerModel.cs" />
+    <Compile Include="Models\StandardCommandViewModel.cs" />
+    <Compile Include="Models\TypeButtonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

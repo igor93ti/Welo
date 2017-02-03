@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using FireSharp;
+﻿using FireSharp;
 using FireSharp.Config;
 using FireSharp.Interfaces;
-using FireSharp.Response;
-using Microsoft.Bot.Connector;
-using Welo.Domain.Entities;
 
 namespace Welo.Application.AppServices
 {
@@ -38,27 +33,27 @@ namespace Welo.Application.AppServices
             _client = new FirebaseClient(config);
         }
 
-        public async void PushMessage(IMessageActivity message)
-        {
-            var lead = new LeadEntity
-            {
-                FromId = message.From.Id,
-                FromName = message.From.Name,
-                LastTriggerUsed = message.ChannelId
-            };
+        //public async void PushMessage(IMessageActivity message)
+        //{
+        //    var lead = new LeadEntity
+        //    {
+        //        FromId = message.From.Id,
+        //        FromName = message.From.Name,
+        //        LastTriggerUsed = message.ChannelId
+        //    };
 
-            var commandStatics = await _client.GetAsync("welobot/statistics/" + message.Text.ToUpper());
-            var statistics = commandStatics.ResultAs<CommandStatistics>();
+        //    var commandStatics = await _client.GetAsync("welobot/statistics/" + message.Text.ToUpper());
+        //    var statistics = commandStatics.ResultAs<CommandStatistics>();
 
-            var temp = new CommandStatistics
-            {
-                Name = message.Text.ToUpper(),
-                Usages = statistics?.Usages + 1 ?? 1
-            };
+        //    var temp = new CommandStatistics
+        //    {
+        //        Name = message.Text.ToUpper(),
+        //        Usages = statistics?.Usages + 1 ?? 1
+        //    };
 
-            _client.SetAsync("welobot/leads/" + lead.IdUser, lead);
-            _client.SetAsync("welobot/statistics/" + message.Text.ToUpper(), temp);
-        }
+        //    _client.SetAsync("welobot/leads/" + lead.IdUser, lead);
+        //    _client.SetAsync("welobot/statistics/" + message.Text.ToUpper(), temp);
+        //}
     }
 
     public class CommandStatistics

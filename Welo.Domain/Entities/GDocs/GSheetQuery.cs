@@ -1,4 +1,4 @@
-namespace Welo.Domain.Entities
+namespace Welo.Domain.Entities.GDocs
 {
     public class GSheetQuery
     {

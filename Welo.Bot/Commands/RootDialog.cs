@@ -1,25 +1,18 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Welo.Bot.Commands
+﻿namespace Welo.Bot.Commands
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Autofac;
+    using Interfaces;
     using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Builder.Dialogs.Internals;
     using Microsoft.Bot.Connector;
 
     [Serializable]
-    public class RootDialog : IDialog<object>
+    public class RootDialog : IRootDialog
     {
-        private const string FlightsOption = "Flights";
-
-        private const string HotelsOption = "Hotels";
-        private Dictionary<string, IDialog<object>> commandsDefault;
+        ICommand _service;
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -29,28 +22,25 @@ namespace Welo.Bot.Commands
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var message = await result;
-            var messageText = message.Text;
-            commandsDefault = new Dictionary<string, IDialog<object>>
-                    {
-                        { "random",new RandomCommand()},
-                        { "help",new HelpCommand()},
-                        { "subscribe",new SubscribeCommand ()}
-                    };
+            using (var scope = DialogModule.BeginLifetimeScope(Conversation.Container, message))
+            {
+                var messageText = message.Text;
 
-            if (messageText.Contains('|'))
-                messageText = messageText.Substring(0, messageText.LastIndexOf('|'));
+                if (messageText.Contains('|'))
+                    messageText = messageText.Substring(0, messageText.LastIndexOf('|'));
 
-            IDialog<object> command;
+                if (messageText.Contains("random"))
+                    _service = scope.Resolve<IRandomCommand>();
+                else if (messageText.Contains("help"))
+                    _service = scope.Resolve<IHelpCommand>();
+                else if (messageText.Contains("subscribe"))
+                    _service = scope.Resolve<ISubscribeCommand>();
+                else
+                    _service = scope.Resolve<IStartUpCommand>();
 
-            if (commandsDefault.Keys.Contains(messageText))
-                command = commandsDefault[messageText];
-            else
-                command = new StartUpCommand();
 
-            //ShowOptions(context);
-
-            await context.Forward(command, this.ResumeAfterDialog, message, CancellationToken.None);
-
+                await context.Forward(_service, this.ResumeAfterDialog, message, context.CancellationToken);
+            }
         }
 
         public async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
@@ -59,33 +49,11 @@ namespace Welo.Bot.Commands
             {
                 var message = await result;
 
-                if ((message.GetType() == typeof(string) && string.IsNullOrEmpty((string)message)) || message == null)
-                    return;
+                if ((message is string && !string.IsNullOrEmpty((string)message)))
+                    await context.PostAsync((string)message);
 
-                //activity.TextFormat = TextFormatTypes.Markdown;
+
                 await context.PostAsync((Activity)message);
-
-                //var message = await result;
-                //var activity = (Activity)message;
-                //activity.TextFormat = TextFormatTypes.Plain;
-                //var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                //await connector.Conversations.ReplyToActivityAsync(activity);
-            }
-            catch (Exception ex)
-            {
-                await context.PostAsync($"Failed with message: {ex.Message}");
-            }
-            finally
-            {
-                context.Wait(this.MessageReceivedAsync);
-            }
-        }
-
-        private async Task ResumeAfterOptionDialog(IDialogContext context, IAwaitable<object> result)
-        {
-            try
-            {
-                var message = await result;
             }
             catch (Exception ex)
             {

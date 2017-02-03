@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace Welo.Bot.ViewModels
+namespace Welo.Application.Models
 {
     [Serializable]
     public enum CommandTypeViewModel
     {
-        GoogleDocs
+        GoogleDocs,
+        Text
     }
 }

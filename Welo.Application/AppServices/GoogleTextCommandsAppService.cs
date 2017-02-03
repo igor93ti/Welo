@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Welo.Domain.Entities;
+using Welo.Domain.Entities.GDocs;
 using Welo.Domain.Services.GSheets;
 
 namespace Welo.Application.AppServices

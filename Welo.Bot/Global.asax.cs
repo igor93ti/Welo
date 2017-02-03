@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
-using Autofac.Integration.WebApi;
-using Common.Logging;
-using Microsoft.IdentityModel.Protocols;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Autofac.Integration.Mvc;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Internals.Fibers;
 using Quartz;
 using Quartz.Impl;
 using RollbarDotNet;
+using Welo.Application.Maps;
 using Welo.Bot.App_Start;
 using Welo.Bot.Commands;
+using Welo.Bot.Commands.Interfaces;
 using Welo.Bot.Filters;
-using Welo.Bot.Maps;
-using Welo.Domain.Entities;
-using System.Collections.Generic;
-using System.Web;
-using Welo.Application.AppServices;
+using Welo.IoC;
 
 namespace Welo.Bot
 {
@@ -28,19 +22,39 @@ namespace Welo.Bot
     {
         protected void Application_Start()
         {
+            RegisterBotDependencies();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             AutoMapperConfig.RegisterMappings();
             Rollbar.Init(new RollbarConfig
             {
                 AccessToken = ConfigurationManager.AppSettings["Rollbar.AccessToken"],
                 Environment = ConfigurationManager.AppSettings["Rollbar.Environment"]
             });
-            AutofacBootstrap.Init();
-            string path = Server.MapPath("~/datafile/commands.json");
-
-            StandardCommandsAppService.Intance.Init();
 
             ScheduleJobs();
+        }
+
+        private void RegisterBotDependencies()
+        {
+            var builder = new ContainerBuilder();
+            
+            builder.RegisterModule<ApplicationModule>();
+            builder.RegisterModule<DataModule>();
+            builder.RegisterModule<DomainModule>();
+
+            builder.RegisterType<RootDialog>().As<IRootDialog>().InstancePerDependency();
+            builder.RegisterType<HelpCommand>().As<IHelpCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<RandomCommand>().As<IRandomCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<StartUpCommand>().As<IStartUpCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<SubscribeCommand>().As<ISubscribeCommand>().InstancePerLifetimeScope();
+            builder.RegisterModule(new ReflectionSurrogateModule());
+
+            builder.RegisterControllers(typeof(WebApiApplication).Assembly);
+
+            builder.Update(Conversation.Container);
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(Conversation.Container));
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -72,7 +86,7 @@ namespace Welo.Bot
                     //        .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(10, 15))
                     //)
                     .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(40)
+                        .WithIntervalInSeconds(10)
                         .RepeatForever())
                     .Build();
 
@@ -82,13 +96,6 @@ namespace Welo.Bot
             {
                 throw;
             }
-        }
-
-        public static ILifetimeScope FindContainer()
-        {
-            var config = GlobalConfiguration.Configuration;
-            var resolver = (AutofacWebApiDependencyResolver)config.DependencyResolver;
-            return resolver.Container;
         }
 
         public class FilterConfig

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using Welo.Domain.Entities.Base;
 using Welo.Domain.Entities.Enums;
+using Welo.Domain.Interfaces;
 
 namespace Welo.Domain.Entities
 {
     [Serializable]
-    public class StandardCommandEntity : Entity<int>, IBotCommand
+    public class StandardCommandEntity : Entity<int> , IBotCommand
     {
         public string Trigger { get; set; }
 
@@ -30,9 +31,9 @@ namespace Welo.Domain.Entities
 
         public bool WithButtons { get; set; }
 
-        public Option FormatMessage(IList<object> row)
+        public ResponseTrigger FormatMessage(IList<object> row)
         {
-            var response = new Option();
+            var response = new ResponseTrigger();
             if (InfoMask != null)
             {
                 response.Title = InfoMask.Title >= 0 ? row[InfoMask.Title].ToString() : string.Empty;
@@ -58,9 +59,9 @@ namespace Welo.Domain.Entities
             return response;
         }
 
-        public Option GetResponse(IList<object> row) => FormatMessage(row);
+        public ResponseTrigger GetResponse(IList<object> row) => FormatMessage(row);
 
-        public Option GetResponseQuote()
+        public ResponseTrigger GetResponseQuote()
         {
             var message = new StringBuilder();
             string quoteResponse = null;
@@ -75,7 +76,7 @@ namespace Welo.Domain.Entities
                     message.AppendLine(item);
 
             var response = message.ToString();
-            return new Option { Quote = response, MessageFormated = response };
+            return new ResponseTrigger { Quote = response, MessageFormated = response };
         }
     }
 }

@@ -14,7 +14,11 @@ namespace Welo.IoC
 
             builder.RegisterType<StandardCommandRepository>()
                    .As<IStandardCommandRepository>()
-                   .InstancePerRequest();
+                   .InstancePerLifetimeScope();
+            
+            builder.RegisterType<LeadRepository>()
+                   .As<ILeadRepository>()
+                   .InstancePerLifetimeScope();
         }
     }
 }

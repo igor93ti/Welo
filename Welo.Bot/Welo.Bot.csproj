@@ -54,8 +54,8 @@
       <HintPath>..\packages\Autofac.WebApi2.4.0.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Chronic, Version=0.3.2.0, Culture=neutral, PublicKeyToken=3bd1f1ef638b0d3c, processorArchitecture=MSIL">
@@ -78,12 +78,12 @@
       <HintPath>..\packages\Flurl.Http.1.0.1\lib\net45\Flurl.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Bot.Builder, Version=3.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Builder.3.3.1\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Builder, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Builder.3.5.0\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Bot.Connector, Version=3.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Builder.3.3.1\lib\net46\Microsoft.Bot.Connector.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Connector, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Builder.3.5.0\lib\net46\Microsoft.Bot.Connector.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -226,7 +226,12 @@
     <Compile Include="App_Start\AutoFacBootstrap.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Commands\IStartUpCommand.cs" />
+    <Compile Include="Commands\Interfaces\ICommand.cs" />
+    <Compile Include="Commands\Interfaces\IHelpCommand.cs" />
+    <Compile Include="Commands\Interfaces\IRandomCommand.cs" />
+    <Compile Include="Commands\Interfaces\IRootDialog.cs" />
+    <Compile Include="Commands\Interfaces\IStartUpCommand.cs" />
+    <Compile Include="Commands\Interfaces\ISubscribeCommand.cs" />
     <Compile Include="Commands\RootDialog.cs" />
     <Compile Include="Commands\SubscriberJob.cs" />
     <Compile Include="Commands\StartUpCommand.cs" />
@@ -240,14 +245,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Maps\AutoMapperConfig.cs" />
-    <Compile Include="Maps\DomainToViewModelMappingProfile.cs" />
-    <Compile Include="Maps\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Luis\Entity.cs" />
+    <Compile Include="Luis\Intent.cs" />
+    <Compile Include="Luis\LuisClient.cs" />
+    <Compile Include="Luis\LuisResponse.cs" />
+    <Compile Include="Luis\LuisResponseExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\CommandTypeViewModel.cs" />
-    <Compile Include="ViewModels\LeadViewModel.cs" />
-    <Compile Include="ViewModels\QuotesResponsesViewModel.cs" />
-    <Compile Include="ViewModels\StandardCommandViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -278,20 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Welo.Application\Welo.Application.csproj">
-      <Project>{25612D79-1C0C-4E39-8204-CAFC5AC78B53}</Project>
+      <Project>{25612d79-1c0c-4e39-8204-cafc5ac78b53}</Project>
       <Name>Welo.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Welo.Data\Welo.Data.csproj">
-      <Project>{7a0d9611-7517-4d52-9b02-e4f99c99c500}</Project>
-      <Name>Welo.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Welo.Domain\Welo.Domain.csproj">
       <Project>{dd232ce3-fcc8-47ad-8ef2-fcee856ca895}</Project>
       <Name>Welo.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Welo.GoogleDocsData\Welo.GoogleDocsData.csproj">
-      <Project>{b70829b2-5c3d-4df4-b223-216fd49d6240}</Project>
-      <Name>Welo.GoogleDocsData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Welo.IoC\Welo.IoC.csproj">
       <Project>{B68CB721-26E4-47F0-A2E2-46D5E4350A1C}</Project>

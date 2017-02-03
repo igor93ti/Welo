@@ -2,7 +2,6 @@
 using Autofac;
 using Welo.Application.AppServices;
 using Welo.Application.Interfaces;
-using Welo.Domain.Entities;
 using Welo.Domain.Interfaces.Services.GSheets;
 using Welo.Domain.Services.GSheets;
 using Welo.GoogleDocsData;
@@ -18,10 +17,14 @@ namespace Welo.IoC
 
             builder.RegisterType<StandardCommandsAppService>()
                       .As<IStandardCommandsAppService>()
-                      .InstancePerRequest();
+                      .InstancePerLifetimeScope();
 
-            builder.RegisterType<GSheetsService>().As<IGSheetsService>().InstancePerRequest();
-            builder.RegisterType<CommandTextGoogle>().As<ICommandTextGoogle>().InstancePerRequest();
+            builder.RegisterType<LeadAppService>()
+                      .As<ILeadAppService>()
+                      .InstancePerLifetimeScope();
+
+            builder.RegisterType<GSheetsService>().As<IGSheetsService>().InstancePerLifetimeScope();
+            builder.RegisterType<CommandTextGoogle>().As<ICommandTextGoogle>().InstancePerLifetimeScope();
         }
     }
 }

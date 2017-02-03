@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Welo.Domain.Entities;
 using Welo.Domain.Entities.Base;
 using Welo.Domain.Entities.Enums;
 
-namespace Welo.Domain.Entities
+namespace Welo.Domain.Interfaces
 {
     public interface IBotCommand : IEntity<int>
     {
@@ -17,8 +18,8 @@ namespace Welo.Domain.Entities
         string Trigger { get; set; }
         bool WithButtons { get; set; }
 
-        Option FormatMessage(IList<object> row);
-        Option GetResponse(IList<object> row);
-        Option GetResponseQuote();
+        ResponseTrigger FormatMessage(IList<object> row);
+        ResponseTrigger GetResponse(IList<object> row);
+        ResponseTrigger GetResponseQuote();
     }
 }

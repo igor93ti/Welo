@@ -5,7 +5,7 @@ using Welo.Domain.Entities.Base;
 namespace Welo.Domain.Entities
 {
     [Serializable]
-    public class Option : Entity<int>
+    public class ResponseTrigger : Entity<int>
     {
         public string Title { get; set; }
         public string Author { get; set; }

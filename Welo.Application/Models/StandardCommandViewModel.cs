@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Welo.Domain.Entities;
-using Welo.Domain.Entities.Enums;
 
-namespace Welo.Bot.ViewModels
+namespace Welo.Application.Models
 {
     [Serializable]
-    public class StandardCommandViewModel
+    public class StandardCommandModel
     {
         public string Trigger { get; set; }
         public bool IsRandomResponse { get; set; }
@@ -15,6 +14,11 @@ namespace Welo.Bot.ViewModels
         public IList<int> FormatMask { get; set; }
         public string TableName { get; set; }
         public string[] QuotesResponses { get; set; }
-        public InfoCommandMask InfoMask { get; set; }
+        public InfoCommandMaskModel InfoMask { get; set; }
+
+        public string Name { get; set; }
+
+        public bool WithButtons { get; set; }
+        public int Id { get; set; }
     }
 }

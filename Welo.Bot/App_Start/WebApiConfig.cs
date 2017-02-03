@@ -1,9 +1,8 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Welo.Bot.Filters;
 
-namespace Welo.Bot
+namespace Welo.Bot.App_Start
 {
     public static class WebApiConfig
     {
