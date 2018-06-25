@@ -8,24 +8,17 @@ using Module = Autofac.Module;
 
 namespace Welo.IoC
 {
-    public class DomainModule : Module
+    public class WebAppModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
             
-            builder.RegisterType<LeadService>()
-                   .As<ILeadService>()
-                   .InstancePerLifetimeScope();
-
             builder.RegisterType<MovieService>()
                    .As<IMovieService>()
                    .InstancePerLifetimeScope();
-
-            builder.RegisterType<BotCommandsService>()
-                   .As<IStandardCommandService>()
-                   .InstancePerLifetimeScope();
+            
         }
     }
 }

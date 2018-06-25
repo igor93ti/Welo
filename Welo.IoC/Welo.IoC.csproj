@@ -65,6 +65,7 @@
     <Compile Include="IServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="WebAppModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
