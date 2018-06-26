@@ -64,11 +64,13 @@ namespace Welo.WebApp.Controllers
 
         // POST: Movie/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(MovieModel model)
         {
             try
             {
-                // TODO: Add update logic here
+                var item = Mapper.Map<Movie>(model);
+
+                _movieService.Update(item);
 
                 return RedirectToAction("Index");
             }
@@ -81,6 +83,7 @@ namespace Welo.WebApp.Controllers
         // GET: Movie/Delete/5
         public ActionResult Delete(int id)
         {
+            _movieService.Remove(id);
             return View();
         }
 
