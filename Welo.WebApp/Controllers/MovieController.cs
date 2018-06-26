@@ -102,5 +102,11 @@ namespace Welo.WebApp.Controllers
                 return View();
             }
         }
+
+        public JsonResult MovieList()
+        {
+            var listaItens = Mapper.Map<IEnumerable<MovieModel>>(_movieService.GetAll()).Select(x => x.Name).ToList();
+            return Json(listaItens,JsonRequestBehavior.AllowGet);
+        }
     }
 }
